@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Возможности SQL, которые не реализованы в SQLite</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">SQLite поддерживает очень много фич SQL92. Гораздо легче перечислить, что SQLite не поддерживает в SL92, чем перечислять, что он поддерживает. Ниже перечислены неподдерживаемые фичи SQL92. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Список составлен в том порядке, в каком указанные возможности будут добавляться в SQLite. Чем выше фича, тем скорее она будет реализована. Реализация нижнего пункта списка отсутствует в планах разработки. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="100%" cellspacing="0" cellpadding="4">
+<tr>
+<td width="50%" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ограничения "FOREIGN KEY"</p></td>
+<td width="50%" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ограничения целостности "FOREIGN KEY" анализируются, но не выполняются.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Полная поддержка триггеров</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Поддержка триггеров существует, но не полная. Отсутствуют следующие фичи: нет триггеров "FOR EACH STATEMENT" (сейчас все триггеры должны быть "FOR EACH ROW"); нет триггеров "INSTEAD OF" (сейчас триггеры "INSTEAD OF" разрешены только во вьюхах); нет рекурсивных триггеров, т.е. тех, которые вызывают сами себя. </p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Полная поддержка "ALTER TABLE"</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">"ALTER TABLE" поддерживается только в вариантах "RENAME TABLE" и "ADD COLUMN". Пропущены такие типы операторов "ALTER TABLE" как "DROP COLUMN", "ALTER COLUMN", "ADD CONSTRAINT" и так далее. </p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вложенные транзакции</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В настоящем реализованы только простые выполняемые транзакции.</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">"RIGHT" и "FULL OUTER JOIN"</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Поддерживается "LEFT OUTER JOIN" но не "RIGHT OUTER JOIN" и не "FULL OUTER JOIN". </p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запись во "VIEW"-хи</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В SQLite "VIEW"-хи доступны только для чтения. На вьюхах вы не можете выполнять операции "DELETE", "INSERT" или "UPDATE". Но, если вы в этом нуждаетесь, то можете создать триггер, который запросами в своем теле выполнит "DELETE", "INSERT" или "UPDATE" вьюхи. </p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">"GRANT" и "REVOKE"</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так как SQLite читает и пишет в простой дисковый файл, то права доступа, которые могут быть применены к базе, являются обычными правами доступа к файлу, определяемые операционной системой. Команды "GRANT" и "REVOKE", обычно применяемые в клиент-серверных РСУБД, не реализованы потому что, они не имеют смысла для встроенного движка баз данных.</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если вы найдете другие фичи SQL92, которые не поддерживаются в SQLite, пожалуйста, добавьте их на Вики-страницу http://www.sqlite.org/cvstrac/wiki?p=Unsupported</p></body></html>

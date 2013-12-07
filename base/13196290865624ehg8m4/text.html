@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Порядок выполнения</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каждое приложение выполняется в следующем порядке:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Старт приложения из <span style=" font-family:'Courier New'; color:#6a0e07;">index.php</span></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Установка путей для <span style=" font-family:'Courier New'; color:#6a0e07;">application</span>, <span style=" font-family:'Courier New'; color:#6a0e07;">module</span>, и <span style=" font-family:'Courier New'; color:#6a0e07;">system</span>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Установка уровня <span style=" font-family:'Courier New'; color:#6a0e07;">Error reporting</span>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Загружается файл установки, если таковой имеется.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Загружается класс Kohana.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Подключение <span style=" font-family:'Courier New'; color:#6a0e07;">APPPATH/bootstrap.php</span></li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывается метод <span style=" font-family:'Courier New'; color:#6a0e07;">Kohana::init</span>, который устанавливает обработку ошибок, кэширование и логирование.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Подгружаются классы <span style=" font-family:'Courier New'; color:#6a0e07;">Kohana_Config</span> и <span style=" font-family:'Courier New'; color:#6a0e07;">Kohana_Log</span>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывается метод <span style=" font-family:'Courier New'; color:#6a0e07;">Kohana::modules</span> для активации дополнительных модулей. </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Информация о пути к модулям добавляется в каскадную файловую систему.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если находится, подгружается файл <span style=" font-family:'Courier New'; color:#6a0e07;">init.php</span> модуля. </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Файл <span style=" font-family:'Courier New'; color:#6a0e07;">init.php</span> производит дополнительную настройку окружения, включая добавление маршрутов.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Несколько раз вызывается <span style=" font-family:'Courier New'; color:#6a0e07;">Route::set</span>, чтобы определить все маршруты приложения.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывается <span style=" font-family:'Courier New'; color:#6a0e07;">Request::instance</span>, чтобы начать обработку выполнения. </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Проверяет все маршруты, пока не найдёт совпадения с вызываемым.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Создаёт инстанс контроллера и передаёт ему запрос.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывает метод <span style=" font-family:'Courier New'; color:#6a0e07;">Controller::before</span>.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывает действие контроллера, которое генерирует ответа на запрос.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывает метод <span style=" font-family:'Courier New'; color:#6a0e07;">Controller::after</span>. </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Предыдущие 5 шагов могут быть вызваны несколько раз при использовании HMVC подзапросов.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отображается результат ответа на запрос (<span style=" font-family:'Courier New'; color:#6a0e07;">Request</span>).</li></ul>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p></body></html>
