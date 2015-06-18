@@ -1,0 +1,539 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Работа со строками в PowerShell </span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом выполнения команда в PowerShell являются объекты. Поэтому работ со строками сильно по уменьшилось. Но иногда приходится обрабатывать и текст.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="more-750"></a>Начнём с того, что получить строку в PowerShell довольно легко. Так например что бы получить и вывести строку: &quot;Hello World!&quot;. Надо выполнить следующую команду: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">&quot;Hello World!&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New'; font-size:12px; color:#6a1009;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Нумерация символов в строке начинается с нулевого символа.  Максимальная длина строки в PowerShell зависит от характеристики компьютера. Так, на XP она состовляет с 4 гигами оперативной памяти она составляет 151.001.191 символ, а на 8.1 с 8 Гб оперативной памяти до 1.073.741.791 символов.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обратится к конкретному символу строки можно по следующему шаблону:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">(строка) [номер символа]</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например, результатом команды : </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">&quot;Hello World!&quot;[6] </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Будет символ W, это седьмой символ в строке, но нумерация начинается с нуля.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же можно воспользоваться методом Chars, указав в его параметре номер символа. Синтаксис данного метода следующий:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">[строка].Chars([номер символа])</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">&quot;Hello World!&quot;.Chars(6)</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет так же символ W.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что бы присвоить переменной значение , надо воспользоваться оператором =</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a =&quot;Hello&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В результате на консоль будет выведена строка &quot;Hello&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же можно склеивать строки с помощью оператора +</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например: </p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a =$a+&quot; World!&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">или </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a += &quot; World!&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">$a</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В результате на консоле будет выведена строка &quot;Hello World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же со строками можно применять операторы сравнения, такие как</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-eq&quot; - (=) проверяет равны ли строки между собой</li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-ne&quot; - (≠) обратный оператору -eq проверяет неравенство строк</li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-gt&quot; - (&gt;) больше ли одна строка чем другая</li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-lt&quot; - (&lt;) меньше ли одна строка чем другая</li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-le&quot; - (≤) меньше или равна одна строка чем другая</li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&quot;-ge&quot; - (≥) больше или равна одна строка чем другая</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Самым часто используемым оператором среди них это &quot;-eq&quot;. Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd2f362481795"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -eq &quot;Hello World!&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd2f362481795-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -eq  &quot;Hello World!&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат будет True, так как строки идентичны.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Операторы же -gt, -lt, -le, -ge по сути могут помочь определить начинается ли данная строка подстрокой, пример:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например так: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd37442055414"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -gt &quot;Hello&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd37442055414-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -gt  &quot;Hello&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет True. Однако логичнее для этого использовать метод самой строки StartsWith о нём написано ниже.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же есть методы сравнения -like и -match</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор -like использует для сравнения шаблоны, как часто применялись в конадной строке дос, например: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd40216550194"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -Like &quot;Hello*!&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd40216550194-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -Like  &quot;Hello*!&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет : True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оператор -match использует регулярные выражения .NET. Что существенно увеличивает возможности данного метода.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Предыдущий пример мог бы выглядеть например так: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd48177542212"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -match &quot;Hello[\D]*!&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd48177542212-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -match  &quot;Hello[\D]*!&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет : True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При этом, в переменной $matches хранятся значения совпадений данного регулярного выражения. Это даёт большие возможности. Рассмотрим пример, как получить все строчки с ссылками из текста: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857"></a><span style=" font-size:12px;">$</span><span style=" font-size:12px;">a = get-help Get-Help -detailed $a -match &quot;http://.*/&quot; $matches[0].split(&quot;;&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px;">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px;">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px;">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12px;">5 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857-1"></a><span style=" font-size:12px;">$</span><span style=" font-size:12px;">a = get-help Get-Help -detailed</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857-2"></a><span style=" font-size:12px;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857-3"></a><span style=" font-size:12px;">$</span><span style=" font-size:12px;">a -match &quot;http://.*/&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857-4"></a><span style=" font-size:12px;"> </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd50634948857-5"></a><span style=" font-size:12px;">$</span><span style=" font-size:12px;">matches[0].split(&quot;;&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом выполнения данного скрипта будет следующий набор строк: @(&quot;http://schemas.microsoft.com/maml/2004/10&quot;, &quot;xmlns:command=http://schemas.microsoft.com/maml/dev/command/2004/10&quot;,&quot;xmlns:dev=http://schemas.microsoft.com/maml/dev/2004/10&quot;,&quot;xmlns:MSHelp=http://msdn.microsoft.com/&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Надо отметить утверждение о том, что все объекты в PowerShell являются объектами и строки тоже не являются исключениями.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим методы которые можно применить, для строк: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd60042918168"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; | gm </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd60042918168-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; | gm</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Clone - копия объекта.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом метода будет точная копия данного объекта.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Его синтаксис: [String]=[Строка].Clone()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например результатом данной команды: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd69284537169"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Clone() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd69284537169-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Clone()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Будет строка &quot;Hello World!&quot;.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">CompareTo - сравнение двух строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вызывается он [int]= [1 строка].CompareTo([2 строка])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат данного метода 0 - тогда строки совпадают. Могут ещё быть -1 и 1.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1 означает, что строка 1 меньше строки 2.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 означет, что строка 1 больше строки 2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например результатом данного выражения: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd72836260439"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).CompareTo(&quot;Hello&quot;); </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd72836260439-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).CompareTo(&quot;Hello&quot;);</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет 1, а выражения </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd7a864647763"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).CompareTo(&quot;hello world!&quot;); </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd7a864647763-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).CompareTo(&quot;hello world!&quot;);</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет -1.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что бы сравнить две строки без учёта регистра, то надо воспользоваться методом .NET:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[string]::Compare([строка 1], [строка 2], [игнорировать ли регистр])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сравним им строчки &quot;Hello World!&quot; и &quot;hello world!&quot; </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd83474065023"></a><span style=" font-size:12px;">[</span><span style=" font-size:12px;">string]::Compare(&quot;Hello World!&quot;,&quot;hello world!&quot;,$True) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd83474065023-1"></a><span style=" font-size:12px;">[</span><span style=" font-size:12px;">string]::Compare(&quot;Hello World!&quot;,&quot;hello world!&quot;,$True)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет 0, то есть две строки равны.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Contains - Нахождение подстроки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный метод поможет посмотреть, является ли данная строка подстрокой.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">синтаксис метода такой:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[bool] = [строка 1].Contains([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данного метода будет булевое значение, которое будет равно 0 если строка 2 будет являтся подстрокой строки 1.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd8b842808243"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Contains(&quot;World&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd8b842808243-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Contains(&quot;World&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">результатом данного выражение будет значение &quot;True&quot;. Однако данный метод чувствителен к регистру.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">EndsWith - Заканчивается ли строка подстрокой</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис данного метода [bool] = [строка 1].EndsWith([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный метод определит, заканчивается ли строка 1  - строкой 2.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">например: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd94658192720"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).EndsWith(&quot;World!&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd94658192720-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).EndsWith(&quot;World!&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">StartsWith - начинается ли строка с подстроки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис данного метода [bool] = [строка 1].StartsWith([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Аналогично EndsWith  данный метод определит начинается ли строка 1 со строки 2.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd9d332881750"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).StartsWith(&quot;Hello&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bd9d332881750-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).StartsWith(&quot;Hello&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Equals - сравнение двух строк</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">данный метод позволяет сравнить строки:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[bool] = [строка 1].Equals([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdad079669468"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Equals(&quot;Hello World!&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdad079669468-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Equals(&quot;Hello World!&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной операции будет True</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Однако это удобнее записать так: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdb5933192311"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -Eq &quot;Hello World!&quot; </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdb5933192311-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot; -Eq &quot;Hello World!&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">GetHashCode- получить Hash Code строки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис этого метода:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int] = [строка 1].GetHashCode()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом выполнения Метода, на строке &quot;Hello World!&quot; : </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdbd153394617"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetHashCode() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdbd153394617-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetHashCode()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Будет: &quot;-1989043627&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">IndexOf - индекс начала вхождения подстроки.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный метод позволяет получить индекс первого символа вхождения подстроки в строку:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int] = [строка 1].IndexOf([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdc6035316636"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).IndexOf(&quot;World&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdc6035316636-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).IndexOf(&quot;World&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом выполнения данного скрипта, будет  &quot;6&quot;. Так как нумерация строки начинается с нулевого символа.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">LastIndexOf - Последнее вхождение подстроки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В отличии от IndexOf показывает не первое значение входа подстраки а последнее , синтаксис этого метода:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int]=[строка 1].LastIndexOf([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdcf465981946"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).LastIndexOf(&quot;o&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdcf465981946-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).LastIndexOf(&quot;o&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет значение 7.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">IndexOfAny - первое вхождение любого символа из подстроки в строке.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int] = [строка 1].IndexOfAny([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный метод позволит получить первое вхождение любого символа из строки 2 в строке 1</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассмотрим пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdd7710510123"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).IndexOfAny(&quot;World&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdd7710510123-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).IndexOfAny(&quot;World&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет 2, так как l присутствует и в слове World</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">LastIndexOfAny  - последнне вхождение любого символа из подстроки в строке.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int] = [строка 1].LastIndexOfAny([строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Анологично IndexOfAny ищет значение входа символов подстроки в строке, но выводит не первое вхождение, а последнее</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">(&quot;Hello World!&quot;).LastIndexOfAny(&quot;World&quot;)</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">результатом данной команды будет 10, и это символ &quot;d &quot;.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Insert - Вставить в строку, подстроку.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]= [строка 1].Insert([Номер символа],[строка 2])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данного метода будет строка содержащая строку 2 начиная с символа &quot;Номер символа&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bde1703911542"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Insert(11,&quot; of Warcraft&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bde1703911542-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Insert(11,&quot; of Warcraft&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом выполнения данного скрипта будет строка : &quot;Hello World of Warcraft!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">PadLeft - дополнить строку символами с лева</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что бы дополнить строку до определённого кол-ва символов. Если мы хотим, что бы символы дополнялись с лева, можно воспользоваться командой PadLeft её синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] =  [строка 1].PadLeft([размер строки],[символ которым заполнять])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdf3288447211"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.PadLeft(20,&quot;.&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdf3288447211-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.PadLeft(20,&quot;.&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет строка: &quot;........Hello World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">PadRight - дополнить строку символами с права</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Аналогично, как и PadLeft дополняет строку до указанного размера, символами, добавляя их с права. Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] =  [строка 1].PadRight([размер строки],[символ которым заполнять])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdfc829633182"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.PadRight(20,&quot;.&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3bdfc829633182-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.PadRight(20,&quot;.&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат данной команды будет строка : Hello World!........</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Remove - позволяет удалять из строки подстроки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод Remove перегружен и может использоваться в следующих синтаксисах:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] = [строка 1].Remove([кол-во символов])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">результатом данной команды будет строка содержащая подстроку начиная с 0 символа строки 1 и заканчивая символом указанному в методе.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be05738183648"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Remove(2) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be05738183648-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Remove(2)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет строка: &quot;He&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если же воспользоваться синтаксисом:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] = [строка 1].Remove([начальная позиция],[кол-во символов])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">То результатом данной команды будет строка сформированная из строки 1, но в ней не будет содержаться указанное кол-во символов, начиная с начальная позиция.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be0e661643144"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Remove(4,2) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be0e661643144-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Remove(4,2)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат: &quot;HellWorld!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Substring - позволяет получить подстроку из строки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Метод Substring является кординально противоположный, чем метод Remove</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Он так же перегружен и может использоватся в двух вариациях.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] = [строка 1].Substring([кол-во символов])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет подстрока образованная из строки 1 путём удаления данное кол-во символов.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be17748213787"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Substring(3) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be17748213787-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Substring(3)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет строка: &quot;lo World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так же существует другой синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] = [строка 1].Remove([начальная позиция],[кол-во символов])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Тогда результатом данного метода будет подстрока сформированная из строки 1 содержащая указанное кол-во символов и начинающаяся с указанной позиции.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be20746549262"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Substring(6,5) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be20746549262-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Substring(6,5)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет строка &quot;World&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Replace - найти подстроку и заменить на свою</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный метод позволяет заменить все вхождения подстроки в строке, на другую подсроку.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String] = [строка 1].Replace([старая подстрока],[новая подстрока])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be30926092798"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Replace(&quot;Hello&quot;,&quot;Goodbye&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be30926092798-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).Replace(&quot;Hello&quot;,&quot;Goodbye&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результат &quot;Goodbye World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Split - разбить строку на массив строк.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Иногда строку легче обрабатывать массивом, для этого есть метод Split. Он позволяет разбить строку на массив подстрок с помощью разделяющего символа или группу символов.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[string[] ]= [строка 1].Split([разделяющий символ])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be39713988306"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World !&quot;).Split(&quot; &quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be39713988306-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World !&quot;).Split(&quot; &quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">результатом будет массив строк&quot;Hello&quot;,&quot;World,!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если нам нужно указать не один разделитель а несколько, укажите перечисление:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be41317554172"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Split(@(&quot;o&quot;,&quot;e&quot;)) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be41317554172-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Split(@(&quot;o&quot;,&quot;e&quot;))</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет массив строк :&quot;H&quot;,&quot;ll&quot;,&quot; W&quot;,&quot;rld!&quot;</p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Trim, TrimLeft, TrimRight - удаляем одинаковые символы по бокам страницы</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Иногда нужно удалить повторяющиеся символы по бокам строки. Очень часто такими символами являются пробелы, для этого существует метор Trim он существует в следующих вариациях Trim, TrimLeft, TrimRight они отличаются областью действия, Trim отбрасывает не нужные символы с двух сторон строки, TrimLeft - только с лева, TrimRight - только с права.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">что бы убрать лишние пробелы можно воспользоваться следующим синтаксисом:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].Trim()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].TrimLeft()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].TrimRight()</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be4b985136413"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;"> Hello World! &quot;.Trim() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be4b985136413-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">           Hello World!         &quot;.Trim()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет строка &quot;Hello World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если же мы хотим удалить не пробел, то этот символ надо ввести в параметр метода. Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].Trim([удаляемый символ])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].TrimLeft([удаляемый символ])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[String]=[строка 1].TrimRight([удаляемый символ])</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be54921694123"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">.........Hello World!........&quot;.Trim(&quot;.&quot;) </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be54921694123-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">.........Hello World!........&quot;.Trim(&quot;.&quot;)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данной команды будет строка &quot;Hello World!&quot;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Свойство Length - позволяет определить размер строки</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что бы посмотреть размер строки, надо воспользоваться свойством Length. Синтаксис:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[int] = [строка].Length</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пример: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be5d350012262"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Length </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be5d350012262-1"></a><span style=" font-size:12px;">&quot;</span><span style=" font-size:12px;">Hello World!&quot;.Length</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом команды будет число 12</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Преобразования строк в различные типы</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">У строки так же имеется ряд методов, которые конвертируют данные из  строки в различные типы. Эти свойства ToBoolean, ToByte, ToChar,  ToCharArray, ToDateTime, ToDecimal, ToDouble, ToInt16, ToInt32, ToInt64, ToLower, ToLowerInvariant, ToSByte, ToSingle, ToString, ToType, ToUInt16, ToUInt32, ToUInt64, ToUpper, ToUpperInvariant</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">GetEnumerator - получить перечисление</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Полученить перечисление из строки.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис этого метода:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">[System.CharEnumerator] = [строка 1].GetEnumerator() </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be6d189824380"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetEnumerator() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be6d189824380-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetEnumerator()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом данного метода будет перечисление @('H','e','l','l','o',' ','W','o','r','l','d','!')</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">GetType - получить тип объекта</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Так как мы рассматриваем строки то возращаемый тип строки это String</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис:[System.RuntimeType] =  [строка 1].GetType() </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be76717009115"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetType() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be76717009115-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetType()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет объект System.RuntimeType со значением типа String</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">GetTypeCode - получить код типа объекта</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Получить тип объекта, если мы работаем со строками то тип будет String.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксис: [System.TypeCode] = [строка 1].GetTypeCode() </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be7f149114245"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetTypeCode() </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:15px;"><span style=" font-size:12px;">1 </span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="crayon-55829cca3be7f149114245-1"></a><span style=" font-size:12px;">(</span><span style=" font-size:12px;">&quot;Hello World!&quot;).GetTypeCode()</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Результатом будет объект типа System.TypeCode со значением String</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Говоря о строках, нельзя не упомянуть о командлете <span style=" font-weight:600;">Select-String</span> данный командлет является достойной альтернативой Grep в Unix он позволяет искать строки используя регулярные выражения .NET.</p></body></html>
