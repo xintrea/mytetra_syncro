@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">Статья была опубликована </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">в журнале Системный Администратор 2007 </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">Выпуск №11 (60)</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">Иллюстрации не сохранились</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:14pt; font-weight:600;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">Строим систему видеонаблюдения и охраны на основе ZoneMinder</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">Домик в деревне... Картошечка, укропчик... и никаких проблем. Но, увы, люди любят окружать себя материальными благами цивилизации. Дорогие вещи и машины, о которых нужно заботиться и охранять. Ну а раз так, попробуем сделать нашу жизнь немного легче – поставим виртуального сторожа, который никогда не спит.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Немного фактов из моей жизни, которые подвинули меня на создание системы видеонаблюдения. Я живу в съемной квартире, поэтому ни запретить хозяину квартиры приходить в мое отсутствие, ни установить охранную сигнализацию у меня нет возможности. К тому же я, как и многие автолюбители, несколько раз находил вмятину размером с чей-то бампер на двери своего автомобиля. Ну а отловить тех «супостатов», которые оставляют на капоте и дверях остатки своего интеллекта с помощью гвоздика, – заветная мечта каждого автовладельца. Поэтому было выбрано единственное возможное решение – установить систему видеонаблюдения, которая бы записывала события, а также сигнализировала о непрошеных гостях.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Задачи системы и выбор камер слежения</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В моем случае потребовалось установить две камеры дома, одну – на парковке, и еще одну я поставил в здание, где расположены наши серверы. Из-за больших расстояний, а также из-за территориально разнесенных объектов наблюдения камеры с USB-интерфейсом были сразу отметены (хотя программное обеспечение, использованное в данном решении, позволяет комбинировать источники).</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Также после посещения страниц с обзорами камер (источники указаны в конце статьи) стало понятно, что удел камер с USB-интерфейсом – охват близлежащих объектов (т.е. любительские телеконференции) и что цены на камеры с удовлетворительным качеством начинаются от $250 US. Исходя из этого был определен минимальный ценовой диапазон $250-$500 US и куплены камеры трех разных производителей, сравнительные характеристики которых приведены в таблице 1.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таблица 1. Сравнительные характеристики камер</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="221" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> </p></td>
+<td width="120" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">D-Link DCS-3220</p></td>
+<td width="72" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">AXIS 2100</p></td>
+<td width="204" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Panasonic WV-NP244</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Разрешение</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">640x480</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">640x480</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">640x480</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Минимальная освещенность, люкс</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1.5</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Формат передачи данных</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MPEG/JPG</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MPEG/JPG</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MPEG4/JPG</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Стоимость</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$220</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$320</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">$340 за камеру и $80 за объектив</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Оценка по 5-бальной системе</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PPPoE</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Да</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Да</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Да</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Субъективные выводы. Камера Panasonic WV-NP244 оказалась лидером по качеству. Эта камера обладает сменной оптикой с фиксированными и переменными фокусными расстояниями: 2.8 mm, 4.5 mm, 3.8-8 mm, 5-40 mm, что позволяет выбрать необходимый угол обзора и, как следствие, оптимально охватить охраняемые объекты. Качество изображения, получаемое с Axis 2100 и с D-Link DCS-3220, почти одинаковое, поэтому по соотношению цена/качество лидером является D-Link DCS-3220.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Программное обеспечение</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В силу своей неприхотливости и отсутствия лицензионных проблем было решено построить систему на основе Linux. После недолгих поисков были найдены три бесплатных программных пакета для работы с камерами слежения:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">NetAvis;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Elvis;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZoneMinder.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZoneMinder (далее по тексту – ZM) сразу вышел в фавориты благодаря поддержке всех возможных источников сигнала (устройство захвата видеосигнала, USB-камера, обновляемый локальный файл, видеопоток или файл со встроенного веб-сервера сетевой камеры). Также этот пакет обладает прекрасной документаций и тщательной проработкой всех компонент. Существует версия для FreeBSD.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Требования к системе</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZoneMinder работает на любом дистрибутиве GNU/Linux, в моем случае я устанавливал на дистрибутив Debian GNU/Linux. Пакет требует веб-сервер с поддержкой PHP, MySQL и библиотеку JPEG. Отдельно стоит упомянуть о требованиях к аппаратному обеспечению. Захват сигналов с камер и анализ изображений в режиме детектора движения требует серьезных ресурсов процессора. Мой домашний компьютер c двумя процессорами Xeon 2.8 ГГц был загружен на 40% при работе 4 камер при средней скорости 4-5 кадров в секунду. Позже я уменьшил частоту до одного кадра в секунду, и загрузка упала до 12%.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Установка программного обеспечения</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Перед установкой необходимо настроить веб-сервер (в моем случае Apache) и подготовить базу MySQL. Пример конфигурации виртуального сервера Apache:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">&lt;VirtualHost 192.168.10.99&gt;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  DocumentRoot /home/webcam/www</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  ServerName webcam.example.com</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  ScriptAlias /cgi-bin/  /home/webcam/www/cgi-bin/</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  &lt;Directory  /home/webcam/www&gt;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">    Options ALL +ExecCGI</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">     AllowOverride ALL</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">    DirectoryIndex index.php</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  &lt;/Directory&gt;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">&lt;/VirtualHost&gt;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Далее создаем базу MySQL, пользователя и назначаем ему полный доступ к этой базе:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">mysql -p mysql;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">mysql&gt; create database zm;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">mysql&gt; grant all on zm.* to zmuser@localhost identified by 'put_password_here';</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">mysql&gt; flush privileges;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Затем необходимо создать пользователя, под которым будут запущены демоны, собирающие сигнал с камер слежения, и под которым будут запущены веб-приложения.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">adduser -d /home/webcam webcam</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Компиляция и настройка ZoneMinder</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Получаем исходные коды пакета с домашней страницы проекта <a href="http://www.zoneminder.com/"><span style=" text-decoration: underline; color:#0000ff;">http://www.zoneminder.com</span></a>, раскрываем полученый архив, компилируем и устанавливаем:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">tar -xzvf ZoneMinder-1.xx.xx.tar.gz</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">cd ZoneMinder-1.xx.xx</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">./configure –with-webdir=/home/webcam \</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">--with-cgidir=/home/webcam/www/cgi-bin/ \</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">--with-webuser=webcam –with-webgroup=webcam \</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">--with-mysql=</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">make</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">make install</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Создаем символическую ссылку, чтобы при посещении http://webcam.example.com открывалась контрольная панель ZM:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">ln -s /home/webcam/www/zm.php /home/webcam/www/index.php</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Далее открываем конфигурационный файл <span style=" font-family:'Courier New'; color:#6a1009;">/usr/local/etc/zm.conf</span> и настраиваем параметры доступа к базе данных MySQL:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">ZM_DB_HOST=localhost</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">ZM_DB_NAME=zm</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">ZM_DB_USER=zmuser</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">ZM_DB_PASS=put_password_here</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Иницилизируем базу с помощью файла <span style=" font-family:'Courier New'; color:#6a1009;">db/zm_create.sql</span>, содержащего команды SQL для создания таблиц и первоначальных записей:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">mysql -p zm &lt; db/zm_create.sql</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Если инсталяция прошла успешно и все верно сконфигурировано, то при посещении страницы http://webcam.example.com должна открыться панель управления ZM (см. рис. 1).</p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 1. Главная панель управления ZM</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Конфигурирование основных параметров</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZM включает огромное количество параметров, но я подробнее остановлюсь на основных настройках, которые необходимо поменять для запуска системы:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">разрешение работы с удаленными камерами;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">настройка адреса электронной почты для отсылки сообщений о событиях;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">настройка адреса удаленного сервера FTP, куда ZoneMinder будет копировать кадры событий. Это особенно полезно, если компьютер, где установлен ZM, сам может пострадать от действий злоумышленников.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">На главной панели управления ZM находится ссылка «Options», при нажатии на которую открывается конфигурационная панель. На рис. 2-4 будут приведены конфигуации всех трех пунктов, указанных выше.</p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 2. Разрешение работы с удаленными камерами</p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 3. Настройка адреса электронной почты, куда будут отсылаться сообщения о событиях. Здесь же можно поменять шаблоны сообщений</p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 4. Указание параметров удаленного сервера FTP</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Добавление камер в ZM</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Следующим нашим шагом будет добавление источников сигнала. ZM поддерживает 3 типа источника сигнала:</p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Камеры с интерфейсом USB или платы захвата видеосигнала, совместимые с V4L (Video for Linux).</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Локальный файл. Многие камеры, в частности, Panasonic WV-NP244, могут сами копировать эпизоды видеопотока на сервер FTP (где обычно и устанавливается ZM). Тогда ZM использует локальный файл, который постоянно обновляется камерой по протоколу FTP.</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Файл или поток на удаленном веб-сервере (например, веб-камера).</li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В моем случае использовался только один тип – третий.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для добавления нового источника сигнала необходимо нажать на ссылку «Add New Monitor» и ввести параметры, описанные в таблице 2 и показанные на рис. 5</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таблица 2. Конфигурация источника сигнала</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="113" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Параметр</p></td>
+<td width="644" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Назначение</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Name</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Имя источника сигнала. Может быть, как и имя камеры, так и более осмысленное типа «Home», «Parking»</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Source type</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Тип источника сигнала</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Function</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Режим работы монитора. Пояснения приведены в таблице «Режимы работы мониторов»</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Host name</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Доменное имя  или IP-адрес используемой камеры. Если источник требует аутентификацию, то этот параметр может выглядеть, как username:password@ipa_address</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Remote Host Path</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Часть URL, следующая за доменным именем или IP-адресом</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таблица 3. Режимы работы мониторов</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="77" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Режим</p></td>
+<td width="696" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пояснения</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">None</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Выключен</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Monitor</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Доступен только просмотр в реальном времени</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Modetect</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Режим обнаружения движения. Записываются только фрагменты, на которых обнаружено движение</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Record</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Режим постоянной записи изображения</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Mocord</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Режим постоянной записи сигнала, причем в результирующих файлах выделяются области, в которых замечено движение</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 5. Конфигурация источника сигнала</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Замечание:</span> на некоторых дистрибутивах Linux установлено ограничение на объем доступной разделяемой памяти ядра (Shared Memory), которую активно использует ZM. В дистрибутиве Debian значение по умолчанию равно 64 Мб. Создатель программы ZM рекомендует увеличить до 128 Мб:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">echo 134217728 &gt; /proc/sys/kernel/shmmax</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Далее нужно повторить процесс добавления для всех камер, с которых мы хотим получать изображения. После того как все камеры добавлены, запускаем главную управляющую программу, которая запустит различные демоны, входящие в пакеты ZM, и затем будет контролировать их работу (например, перезапуск в случае «падения»):</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">zmpkg.pl start</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Также необходимо создать скрипт, который бы запускал zmpkg.pl, и добавить его в процесс инициализации при запуске сервера. Для этого создаем файл /etc/init.d/webcam со следующим содержимым:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">#! /bin/sh</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">export PATH=&quot;$PATH:/usr/sbin:/sbin: /usr/local/bin: /usr/local/sbin&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">case &quot;$1&quot; in</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  start)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        echo -n &quot;Starting ZM&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        /usr/local/bin/zmpkg.pl start</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        echo &quot;.&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        ;;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  stop)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        echo -n &quot;Stopping ZM&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        /usr/local/bin/zmpkg.pl stop</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        echo &quot;.&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        ;;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">  *)</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        echo &quot;Usage: /etc/init.d/zm {start|stop}&quot;</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">        exit 1</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">esac</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">exit 0</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">И добавляем этот скрипт в процесс инициализации операционной системы:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">chkconfig webcam on</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После запуска скрипта и обновления страницы панели управления ZM с помощью ссылки «Refresh» источники сигнала должны поменять цвет с красного (нет сигнала или данных) на зеленый (функционирует правильно), и вся панель управления может выглядеть следующим образом (см. рис. 6).</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 6. Главная панель управления ZM</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Из интересных возможностей панели можно отметить следующие:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">при нажатии на ссылку с именем камеры можно просмотреть события, происходящие перед камерой в реальном времени;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">при нажатии на ссылки в колонке «Events» можно просмотреть записанные кадры, когда ZM обнаружил движение в поле видения камеры;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">при нажатии на ссылку «Montage» откроется окно с всеми нашими камерами.</li></ul>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Обработка событий</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Событие в концепции ZM – изменение состояния подсистем и детекторов. Например, обнаружение движения анализатором движения, отключение камеры, окончание дискового пространства и т. д.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZM предоставляет инструменты для фильтрации событий и выполнения определенных операций, если условия фильтра подходят для какого-либо события:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">сравнение настоящего времени с заданным;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">имя камеры совпадает с указанным именем;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">количество кадров при обнаружении движения;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">окончание дискового пространства.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Все эти условия можно комбинировать по условиям «и/или», что дает возможность создавать обработчики событий практически на все случаи жизни.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Операции, которые могут выполняться при выполнении условий какого-либо фильтра, могут включать в себя:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">архивацию эпизодов;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">копирование кадров события на внешний сервер FTP;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">отправку подробностей события на адрес электронной почты;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">выполнение внешней программы;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">удаление записи о событии (например, после копирования на внешний FTP-сервер).</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Приведу пример создания типичного фильтра. Для этого необходимо нажать на ссылку «Filters» в главной панели ZM, затем перейти по ссылке «Show filter window», после чего откроется окно, как показано на рис. 7.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 7. Создание фильтра</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данный фильтр будет срабатывать, если количество кадров в каком-то событии больше, чем один, и имя монитора – «Panasonic». После срабатывания этого фильтра ZoneMinder скопирует кадры, на которых было обнаружено движение, в архив и на внешний сервер FTP, отправит предупреждение по электронной почте, выполнит команду «/usr/bin/alarm-911.pl» и удалит запись об этом событии из списка событий на главной панели управления ZM. Для включения/выключения множественных условий нужно использовать символы «+» и «-» на правой стороне страницы.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После этого сохраняем фильтр, не забывая включить его в режим «Run filter in background» (см. рис. 8).</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 8. Сохранение фильтра</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZM по умолчанию перечитывает фильтры каждые 5 минут и запускает их каждую минуту. Пройдемся перед камерой и подождем 6 минут. Если все фильтры правильно настроены, то в файле /tmp/zmfilter.log можно обнаружить такие строчки:</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Checking event 2380</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Archiving event 2380</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Creating upload file '/tmp/Panasonic-2380.tar.gz'</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Uploading to 192.168.10.99</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Sleeping for 60 seconds</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Reloading filters</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Sleeping for 60 seconds</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Sleeping for 60 seconds</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">Sleeping for 60 seconds</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рекомендуется создать фильтр, который бы очищал дисковое пространство, если заполнение достигло определенного уровня. Для этого создадим новый фильтр и укажем, что нужно удалить все записи о событиях, если заполнение диска превысило 60%.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Разграничение прав учетных записей пользователей</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZoneMinder позволяет создать полноценную систему видеонаблюдения масштаба предприятия. Для этого ZM содержит средства по ограничению прав пользователей, как по управлению системой (модификация источников сигнала и фильтров), так и по разграничению доступа к отдельным камерам.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">По умолчанию ZM – однопользовательская система, и перед началом добавления новых учетных записей необходимо включить опцию «Authenticate user logins to ZoneMinder» на конфигурационной панели, в подразделе «System». После этого надо зарегистрироваться в системе как суперпользователь «admin» с паролем по умолчанию «admin», в результате чего в конфигурационной панели появится еще один подраздел «Users» для управления учетными записями. Я не буду заострять внимание на этом стандартном списке, а сразу перейду к описанию свойств учетных записей.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После нажатия на ссылку «Add new user» появится окно (см. рис. 9).</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 9. Добавление новой учетной записи</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каждая учетная запись состоит из стандартных полей вроде имени, пароля и т. д., а также набора привилегий (см. таблицу 4).</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Таблица 4. Набор привилегий учетной записи</p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td width="89" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Привилегия</p></td>
+<td width="192" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пояснения</p></td>
+<td width="125" bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Возможные уровни доступа</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Stream</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Разрешает/запрещает просмотр потока с камер</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Разрешено</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запрещено</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Events</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Доступ к просмотру событий</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запрещено</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обзор</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Редактирование</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Control</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Управление камерами (для камер, поддерживающих команды поворотов)</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запрещено</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обзор</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Управление</p></td></tr>
+<tr>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Monitor</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Модификация камер (источник сигнала, тип мониторинга и т. д.)</p></td>
+<td bgcolor="#d8e3d4" style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запрещено</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обзор</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Редактирование</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">System</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Модификация системных параметров</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Запрещено</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обзор</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Редактирование</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кроме этого, можно ограничить скорость просмотра потока, а также список камер, к которым пользователь, зарегистрировавшийся под конкретной учетной записью, будет иметь доступ.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Ограничение области слежения</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Бывают ситуации, при которых необходимо наблюдать, что происходит на охраняемом объекте, но при этом ограничить область, анализируемую с помощью детекторов движения. Например, поле обзора камеры захватывает дорогу и саму автомашину, но система должна реагировать, если обнаружено движение только возле охраняемого объекта (машины).</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ZoneMinder предоставляет великолепные средства для  задания множественных областей в поле зрения камеры, в которых и происходит анализ движения.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для управления областями необходимо нажать ссылку с именем камеры на главной панели управления и перейти по ссылке «Zones», в результате чего откроется новое окно со списком зон.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">По умолчанию существует только одна зона, равная всему полю зрения камеры (которую необходимо удалить, если указаны более специфичные зоны).</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После нажатия на ссылку «Add zone» появится удобная панель для задания четырехугольной области (см. рис. 10).</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">?</span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рисунок 10. Задание контролируемой зоны</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Принцип работы таков:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">С помощью мышки выбирается одна из точек прямоугольной области в поле ввода координат этой точки. Верхние две точки – «1» и «2» слева направо, нижние две – «4» и «3». Да, цифры «4» и «3» местами не перепутаны. После этого мышка наводится на новые предполагаемые точки и нажимается левая кнопка мышки. Таким же образом перемещаются оставшиеся 3 точки.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контролируемая область автоматически помечается зеленым цветом. На этом примере анализаторы движения работают только по левой стороне кадра. Можно задать несколько зон для каждой камеры, комбинация которых и создаст очень точную область, в которой будут обнаруживаться движения.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Заключение</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Данная статья описывает процедуру создания базовой системы слежения. За рамками статьи остались такие интересные возможности, как: взаимодействие с другими компонентами концепта «Электронный дом» по протоколу X10; привязка детекторов движения к определенным областям.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">Внимание! Перед установкой системы ZoneMinder в общественных местах рекомендуется проверить местные законы на правомочность использования. Во многих странах съемка людей без их разрешения запрещена.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;"><br /></p></body></html>
