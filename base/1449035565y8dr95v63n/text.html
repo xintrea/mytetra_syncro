@@ -1,0 +1,480 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600; color:#000000;">Обзор архитектуры отечественного процессора «Эльбрус-4С» </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000000;">Готовы поспорить: многие из вас даже не подозревали, что в России тоже разрабатывают и выпускают процессоры. Оно и понятно — отечественная индустрия микроэлектроники уже достаточно долгое время находится в периоде застоя. Однако компания МЦСТ пытается переломить ситуацию с помощью своего нового четырехъядерного процессора «Эльбрус-4С». </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="AdFox_banner_875444"></a><span style=" font-size:x-large; font-weight:600;">О</span><span style=" font-size:x-large; font-weight:600;">главление</span> </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000000;">История</span></li>
+<li style=" color:#000000;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Создание МЦСТ и ее разработки</li>
+<li style=" color:#000000;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Архитектура процессоров «Эльбрус-4С»</li>
+<li style=" color:#000000;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технические характеристики «Эльбрус-4С»</li>
+<li style=" color:#000000;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ближайшее будущее процессоров «Эльбрус»</li>
+<li style=" color:#000000;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Заключение </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="verttop"></a>Все привыкли к тому, что на рынке микропроцессоров балом правят три крупных американских производителя: Intel, AMD и IBM. Это действительно так! Однако это не означает, что микропроцессоры больше никто не производит. Как правило, в большинстве развитых стран есть собственные «государственные» производители интегральных схем. Не стоит думать, что они пытаются каким-то образом составить конкуренцию «большой тройке» — вовсе нет. Причина локальной разработки и производства процессоров кроется несколько в другом, а именно в необходимости выпуска собственных решений для оборонной отрасли, где использование иностранной электронной базы запрещается из соображений национальной безопасности. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="AdFox_banner_276736"></a>Само собой, ситуация характерна и для России. Главным отечественным решением являются процессоры на базе архитектуры «Эльбрус», разработкой которых занимается компания МЦСТ. В конце апреля был анонсирован скорый выход четырехъядерной модели «Эльбрус-4С», о которой и пойдет речь в сегодняшнем материале.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Однако для начала мы вернемся в прошлое и взглянем, как зарождалась архитектура «Эльбрус».</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image11420.png" /><a name="389100"></a><br /><span style=" font-size:8pt; color:#000000;">Процессор «Эльбрус» производства МЦСТ</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="История"></a><span style=" font-size:x-large; font-weight:600;">И</span><span style=" font-size:x-large; font-weight:600;">стория</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Трудиться над архитектурой «Эльбрус» начали более 40 лет назад, а именно в 1973 году. Работы велись в стенах «Института точной механики и вычислительной техники имени Лебедева» (ИТМиВТ) под руководством академика Всеволода Сергеевича Бурцева — известного ученого в области систем управления и конструирования универсальных ЭВМ. Конечно же, «заказ» на подобного рода компьютерную технику поступил от военных.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image18876.png" /><a name="389101"></a><br /><span style=" font-size:8pt; color:#000000;">Всеволод Бурцев — человек, стоящий у истоков архитектуры «Эльбрус»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Выпуск первого поколения компьютеров с архитектурой «Эльбрус» состоялся в 1980 году. Их особенностью являлась масштабируемая архитектура: они поддерживали параллельную работу до 10 процессоров одновременно. Объем оперативной памяти составлял 64 Мбайт (или 2<span style=" vertical-align:super;">20 </span>машинных слов), а быстродействие такого компьютера достигало отметки в 12 миллионов операций в секунду.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image161.png" /><a name="389102"></a><br /><span style=" font-size:8pt; color:#000000;">Компьютер «Эльбрус»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Однако главной инновацией «Эльбруса» была его суперскалярная архитектура — в компьютерах она применялась впервые. Как выяснилось позднее, на то время компания IBM уже имела некоторые разработки в этой области, однако довести суперскалярную архитектуру до массовых решений по разным причинам они так и не смогли. Поэтому американские производители начали использовать суперскалярную архитектуру лишь в 1990-х годах. Первыми массовыми устройствами с такой архитектурой стали процессоры Intel Pentium.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image3441.png" /><a name="389103"></a><br /><span style=" font-size:8pt; color:#000000;">Процессор Pentium стал первой разработкой Intel, использующей суперскалярную архитектуру</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Спустя пять лет после выхода первого поколения процессоров завершилась разработка компьютера «Эльбрус-2». Архитектурно он несильно отличались от «Эльбрус-1», однако в них применялась другая элементная база, что позволило поднять производительность новых процессоров более чем в 10 раз — до 125 млн операций в секунду. Также был увеличен объем оперативной памяти компьютера: с 64 Мбайт до 144 Мбайт, а пропускная способность каналов ввода/вывода составила 120 Мбайт/с.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">«Эльбрус-2», как и его предшественник, был предназначен для использования в оборонной отрасли. В итоге компьютер эксплуатировался в Центре управления космическими полетами, а также в ядерных исследовательских центрах в Арзамасе-16 и Челябинске-70. Помимо этого, существовала и другая версия «Эльбрус-2», оптимизированная под более простые задачи. Она носила название «Эльбрус 1-КБ» и пришла на смену устаревающей системе БЭСМ-6, которая к тому времени использовалась уже на протяжении двух десятков лет. Разработчики сохранили программную совместимость между «Эльбрус 1-КБ» и БЭСМ-6, поэтому переход на новые компьютеры оказался вполне безболезненным.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image16522.png" /><a name="389104"></a><br /><span style=" font-size:8pt; color:#000000;">Компьютер «Эльбрус-2»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">После успешного выпуска «Эльбрус-2» полным ходом шла разработка нового компьютера, который ожидаемо получил название «Эльбрус-3». В третьем поколение устройств планировалось огромное количество архитектурных изменений. Разработчики из ИТМиВТ именовали новую архитектуру «постсуперскалярной». Данный принцип лежал в основе архитектуры будущих процессоров Intel Itanium. Поэтому, как бы это странно ни звучало, но отечественные инженеры вновь в плане внедрения инноваций опережали своих западных коллег.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Однако дальше проектирования дело не дошло. В 1994 году был создан тестовый образец процессора «Эльбрус-3», но серийное производство так и не было налажено по достаточно глупой причине: устройство оказалось совсем не востребованным. Спустя 6 лет уже инженеры компании МЦСТ пытались воплотить в жизнь идеи «Эльбрус-3» в новом процессоре «Эльбрус-2000» (также известного как Е2К), который теоретически мог стать конкурентом анонсированному процессору Intel Itanium. Однако массовое производство «Эльбруса-2000» требовали значительных финансовых вливаний, а найти инвестора разработчикам так и не удалось.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Создание_МЦСТ_и_ее_разработки"></a><span style=" font-size:x-large; font-weight:600;">С</span><span style=" font-size:x-large; font-weight:600;">оздание МЦСТ и ее разработки</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Стоит сделать небольшое отступление и сказать пару слов о МЦСТ, которая со времен «Эльбрус-3» и занимается разработкой подобных решений. Компания была основана 2 марта 1992 года как Товарищество с ограниченной ответственностью (ТОО) «Московский центр SPARC-технологий» (МЦSТ). Наличие аббревиатуры SPARC в названии связано с тем, что на тот момент компания МЦСТ рассматривала в качестве основного партнера американскую корпорацию Sun Microsystems, которая продвигала свои вычислительные машины с архитектурой SPARC. И наличие этой аббревиатуры в названии предоставляло ей существенные льготы при сотрудничестве. Например, МЦСТ получила доступ к передовым технологиям проектирования микропроцессорной техники, операционным системам, системам программирования и другим технологиям. На период развития компании это было очень существенной поддержкой. И если поначалу компания работала в тесном сотрудничестве с такими гигантами, как Sun Microsystems, Avanti, Compass, Synopsys, то вскоре инженеры МЦСТ, набравшись опыта, полностью переключились на разработку устройств по государственным заказам.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image10861.png" /><a name="389105"></a><br /><span style=" font-size:8pt; color:#000000;">Система со SPARC-процессором МЦСТ R500</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вплоть до 2007 года МЦСТ выпускала лишь микропроцессоры с архитектурой SPARC и вычислительные системы на их базе. Собственная архитектура «Эльбрус» отошла на второй план. В период с 1997 по 2007 годы были выпущены четыре SPARC-микропроцессора: МЦСТ-R100, МЦСТ-R150, МЦСТ-R500 и МЦСТ-R500S. Также увидел свет и вычислительный комплекс «Эльбрус-90микро». Несмотря на свое название, к данной архитектуре система не имела никакого отношения.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Лишь в 2005 году возобновилась работа над архитектурой «Эльбрус», основанной на микроархитектуре VLIW (Very Long Instruction Word). А уже в 2007 году был представлен одноименный процессор. Его основные характеристики мы собрали в таблицу, которую вы можете увидеть снизу.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технологический процесс</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0,13 мкм</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рабочая тактовая частота</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">300 МГц</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пиковая производительность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 разряда, GIPS/GFLOPS — 6,67/2,4</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">32 разряда, GIPS/GFLOPS — 9,5/4,8</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16-8 GIPS — 12,2–22,6</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память команд 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память данных 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память 2-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">256 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с кэш памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">9,6 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с оперативной памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4,8 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Размеры кристалла</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">15,0х12,6</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество транзисторов</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">75,8 млн</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассеиваемая мощность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6 Вт</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Конечно, для 2007 года характеристики чипа были более чем скромные — он ни в коем случае не составлял конкуренции современным процессорам, например, поколению Intel Conroe, представленному в 2006 году. «Эльбрус» уступал им по всем параметрам. Процессор выпускался по устаревшим 130-нм технологическим нормам, тогда как Intel и AMD уже освоили 65-нм техпроцесс. Как ни странно, но производство процессора было доверено тайваньской компании TSMC. Странно потому, что «камень» предназначался для использования в «оборонке», а производство на сторонних мощностях, таким образом, напрямую влияло на безопасность системы из-за возможных «закладок».</p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image14787.png" /><a name="389106"></a><br /><span style=" font-size:8pt; color:#000000;">Процессор «Эльбрус»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что касается скорости работы «Эльбруса», то его пиковая производительность в 64-разрядном режиме составляла 2,4 ГФЛОПС. Для сравнения: пиковая производительность бюджетного двухъядерного процессора Intel Core 2 Duo E4300 с актуальной на то время архитектурой Conroe и тактовой частотой 1,8 ГГц составляла 14,4 ГФЛОПС, то есть в 6 раз больше! Поэтому вы можете представить, насколько медленным был «Эльбрус» для 2007 года. Тем не менее, для оборонной отрасли производительности процессора было вполне достаточно, поэтому на его основе была создана вычислительная система «Эльбрус-3М1».</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image9021.png" /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;"></span><span style=" font-size:8pt; color:#000000;">Вычислительный комплекс «Эльбрус-3М1»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Комплекс «Эльбрус-3М1» поставлялся с защищенной операционной системой МСВС-Э (Мобильная система Вооруженных Сил), в основе которой лежит Linux версии 2.6.14. Кроме этого компьютер оснащался пакетом тестовых и диагностических программ, а также был обратно совместим со старыми вычислительными комплексами «Эльбрус-1» и «Эльбрус-2». По уровню производительности «Эльбрус-3М1» был сопоставим с системой на базе Pentium III с тактовой частотой 500 МГц. Было проведено сравнительное тестирование в режиме совместимости с платформой x86, и «Эльбрус-3М1» превзошел в скорости процессор Intel. Помимо этого, проводилось тестирование и в «родной» платформе для системы МЦСТ. В таком режиме производительность «Эльбрус-3М1» находилась на уровне с конфигурацией на базе процессора Intel Pentium 4 с частотой 2000 МГц. Для оборонной отрасли такого уровня производительности было более чем достаточно.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Следующим этапом развития архитектуры стала система на кристалле «Эльбрус-S», выпущенная в 2010 году. Для удобства сравнения мы свели все основные характеристики процессора в следующую таблицу.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технологический процесс</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0,09 мкм</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рабочая тактовая частота</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">500 МГц</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пиковая производительность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 разряда, GFLOPS — 4</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">32 разряда, GFLOPS — 8</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память команд 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память данных 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память 2-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2 Мбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с кэш памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с оперативной памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Площадь кристалла</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">142 мм<span style=" vertical-align:super;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество транзисторов</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">218 млн</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассеиваемая мощность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">13 Вт — типовая, 20 Вт — максимальная</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Характеристики нового процессора были улучшены в сравнении с «Эльбрусом». Прежде всего стоит отметить, что производство «Эльбрус-S» было переведено на 90-нм технологические «рельсы». Пускай в 2010 году Intel и AMD уже производили процессоры по тонкому 32-нм техпроцессу, но для отечественного устройства этот переход стал значительным шагом вперед. Тактовая частота «Эльбрус-S» составляла 500 МГц, что на 200 МГц выше, чем у «Эльбруса». Выросла и пиковая производительность: до 4 и 8 ГФЛОПС в 64-разрядном и 32-разрядном режимах соответственно. Увеличился и объем кэш-памяти второго уровня — до 2 Мбайт. Да и сам чип стал сложнее: количество транзисторов в сравнении с предшественником выросло почти в три раза.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image14938.png" /><a name="389108"></a><br /><span style=" font-size:8pt; color:#000000;">Процессор «Эльбрус-S»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В придачу к «Эльбрус-S» МЦСТ представила контроллер периферийных устройств (КПИ) — он же «южный мост». Хаб обеспечил поддержку как «гражданских» интерфейсов, так и промышленных. Благодаря КПИ стало возможным созданием специального четырехпроцессорного рабочего модуля МВ3S/C, который используется в военной технике.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технологический процесс, нм</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">130</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Тактовая частота, МГц</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">250</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Последовательная шина связи с процессором, пропускная способность, Гбайт/с</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер PCI-Express версии 1.0a</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8 линий</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер PCI версии 2.3</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">32/64 бита, частота 33/66 МГц</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер Ethernet 1 Гбит/с</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 порт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер SATA 2.0</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4 порта</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер IDE</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">PATA-100, 2 порта по 2 устройства</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер USB 2.0</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2 порта</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер звукового интерфейса AC-97</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2-канальное стерео</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер последовательного интерфейса RS-232/485</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2 порта</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер параллельного интерфейса IEEE-1284 с поддержкой DMA</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 порт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Контроллер программируемых универсальных входов-выходов GPIO</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16 сигналов</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Интерфейс I2C</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4 канала</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Число транзисторов, млн</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">30</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Потребляемая мощность, Вт</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Спустя год было налажено производство следующего поколения процессоров под названием «Эльбрус-2С+». В своих пресс-релизах компания МЦСТ указывала шестиядерную архитектуру. Однако это совсем не так! «Эльбрус-2С+», по сути, является двухъядерной моделью. Он обладает двумя модулями архитектуры «Эльбрус», но также имеет и четыре ядра цифровых сигнальных процессоров (DSP) фирмы «Элвис». Помимо этого, кристалл претерпел множество изменений. Так, объем кэш-памяти второго уровня каждого из ядер составляет 1 Мбайт. Была добавлена поддержка памяти DDR2 с эффективной частотой 800 МГц, а также дополнительный канал ввода/вывода, посредством которого можно подключить еще один КПИ.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image32162.png" /><a name="389109"></a><br /><span style=" font-size:8pt; color:#000000;">Двухъядерный процессор «Эльбрус-2С+»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для процессора была реализована версия компилятора языка C, которая позволяет генерировать код для ядер DSP и обеспечивать эффективное взаимодействие основной программы, исполняющейся на ядрах CPU, а также процедур, исполняющихся на DSP. Забегая чуть вперед, скажем, что программировать под ядра DSP было сравнительно трудно, поэтому в следующем поколении процессоров инженеры МЦСТ от них отказались вовсе. В результате внесенных изменений производительность процессоров значительно возросла и уже составляла 28 ГФЛОПС в 32-разрядном режиме. Если сравнивать быстродействие «Эльбрус-2С+» с процессорами Intel, то отечественная разработка окажется чуть выше по скорости, чем решения Intel Core 2 Duo.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технологический процесс</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0,09 мкм</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рабочая тактовая частота</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">500 МГц</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Число ядер архитектуры Эльбрус</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Число ядер DSP (Elcore-09)</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пиковая производительность (ядра CPU + ядра DSP)</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 разряда, GFLOPS –­ 8+0</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">32 разряда, GFLOPS – 16+12</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память команд 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память данных 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память 2-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 Мбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Встроенная память DSP (на ядро DSP)</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">128 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с кэш памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность шин связи с оперативной памятью</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12,8 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Площадь кристалла</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">289 мм<span style=" vertical-align:super;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество транзисторов</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">368 млн</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассеиваемая мощность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">25 Вт</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Производительность процессора можно примерно оценить по следующим диаграммам.</p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image28095.png" /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;"></span><span style=" font-size:8pt; color:#000000;">Результаты тестирования в пакете SPEC2000 FP</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image10768.png" /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">Результаты тестирования в пакете SPEC2000 Int</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000000;">Помимо «Эльбрус</span>-2С+», в тестировании участвовали процессоры Intel Pentium-M ULV (1 ГГц, кэш-память 1 Мбайт, 2х DDR-266) и Intel Atom D510 (1,66 ГГц, кэш-память 1 Мбайт, DDR2-800), а также еще один процессор компании МЦСТ — R1000. В качестве тестового программного обеспечения был выбран пакет SPEC2000. Как видно из диаграмм, в режиме FP производительность «Эльбрус-2С+» находится на заметно более высоком уровне, нежели у конкурентов. В режиме Int ситуация выравнивается, и зачастую производительность всех процессоров находится на одном уровне, хотя местами отечественные решения откровенно «проседают».</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Процессоры «Эльбрус-2С+» предполагалось использовать в системах цифровой интеллектуальной обработки сигнала, таких как радары и анализаторы изображений. Однако в то же время новые чипы были более приспособлены для гражданских задач. Например, компания Kraftway даже выпустила тестовую партию моноблочных компьютеров на базе кристаллов «Эльбрус-2С+», однако дальше этого дело не пошло.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">И вот в апреле 2014 года компания МЦСТ представила свою следующую разработку — четырехъядерные процессоры «Эльбрус-4С».</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Архитектура_процессоров_«Эльбрус-4С»"></a><span style=" font-size:x-large; font-weight:600;">А</span><span style=" font-size:x-large; font-weight:600;">рхитектура процессоров «Эльбрус-4С»</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Прежде чем мы начнем подробное изучение архитектуры новых процессоров «Эльбрус-4С», необходимо уделить немного внимания современной архитектуре в целом. Как вам известно, все интегральные решения можно разделить на две большие группы: CISC (Complex Instruction Set Computer) и RISC (Reduced Instruction Set Computer). Уже из названий становится понятно, что CISC-процессоры работают со сложными инструкциями, а RISC — с упрощенными. Сложность инструкций для первой категории заключается в том, что их длина не ограничена. Вдобавок к этому они могут содержать сразу несколько арифметических действий. До начала 1980-х абсолютно все процессоры имели CISC-архитектуру, однако тогдашние исследования компании IBM показали, что сложные инструкции далеко не всегда обрабатываются быстрее, чем последовательность элементарных операций, соответствующая такой сложной инструкции. Так появилась архитектура RISC, предусматривающая использование упрощенных команд.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Примером CISC-архитектуры могут считаться все x86-совместимые процессоры, однако это не совсем так. Работа таких решений базируется на ядре типа RISC. Каждый x86-процессор имеет специальный блок декодирования инструкций, который преобразует CISC-команды в RISC-инструкции.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При этом процессоры x86 являются суперскалярными. Это означает, что за один такт процессор может обрабатывать сразу несколько инструкций. В далеком прошлом процессоры не обладали суперскалярностью и исполняли за такт лишь одну операцию. Тогда это не создавало проблем. Но со временем от CPU требовалась всё более высокая производительность, да и технологические возможности позволяли создавать более сложные системы. Поэтому суперскалярность стала неотъемлемой частью процессорных архитектур. Главной проблемой суперскалярности считается то, что нельзя так просто исполнять несколько операций параллельно, поскольку между ними могут существовать зависимости. Для наглядности тут можно провести параллель с программированием: нельзя запустить на исполнение сразу две функции, если одна из них использует результирующее значение другой. Поэтому в суперскалярных процессорах есть специальная аппаратура, которая анализирует зависимости между операциями и принимает решение об очередности их исполнения.</p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image15863.png" /><a name="389112"></a><br /><span style=" font-size:8pt; color:#000000;">Принцип работы архитектуры «Эльбрус»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Что касается процессоров «Эльбрус», то они базируются на архитектуре VLIW. По большому счету VLIW является развитием RISC-архитектуры и суперскалярности. Особенностью VLIW является то, что в каждой команде может содержаться до 23 элементарных операций, которые должны исполняться параллельно. При этом задача распараллеливания возлагается на компилятор, в отличие от традиционных суперскалярных архитектур, где за распараллеливание отвечают аппаратные блоки процессора. Эффективность такого метода действительно выше. Компилятор способен анализировать исходный код гораздо тщательнее, чем аппаратура RISC/CISC-процессора, и находить больше независимых операций. Поэтому в архитектуре «Эльбрус» больше параллельно работающих исполнительных устройств, чем в традиционных решениях. На многих алгоритмах она демонстрирует более высокую скорость. Кроме этого, не будем забывать, что в случае использования компилятора для распараллеливания операций отпадает надобность в специальных аппаратных блоках процессора, а это делает устройство кристалла более простым и надежным.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image22703.png" /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;"></span><span style=" font-size:8pt; color:#000000;">Принцип работы процессора «Эльбрус»</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000000;">Среди других особенностей архитектуры «Эльбрус» инженеры М</span>ЦСТ выделяют следующие:</p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">6 каналов арифметико-логических устройств (АЛУ), работающих параллельно;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">регистровый файл из 256 84-разрядных регистров;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">аппаратная поддержка циклов, в том числе с конвейеризацией. Повышает эффективность использования ресурсов процессора;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">программируемое асинхронное устройство предварительной подкачки данных с отдельными каналами считывания. Позволяет скрыть задержки от доступа к памяти и полнее использовать АЛУ;</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">поддержка спекулятивных вычислений и однобитовых предикатов. Позволяет уменьшить число переходов и параллельно исполнять несколько ветвей программы;</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">широкая команда, способная при максимальном заполнении задать в одном такте до 23 операций (более 33 операций при упаковке операндов в векторные команды).</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Конечно, не забыли разработчики и о режиме x86-совместимости. Для этого в архитектуре была реализована система динамической трансляции двоичных кодов x86 в коды процессора «Эльбрус». Если говорить простым языком, то система трансляции создает виртуальную машину, в которой работает гостевая операционная система для этой разрядности. По словам разработчиков, на платформе «Эльбрус» в режиме эмуляции платформы x86 удалось запустить более 20 операционных систем (в том числе несколько версий Windows) и сотни приложений.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Стоит сказать несколько слов о производительности процессора в режиме эмуляции. Она ожидаемо немного снижается (примерно на 20-30%). При этом становятся недоступны некоторые возможности «Эльбрус-4С».</p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image24474.png" /><a name="389114"></a><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:8pt; color:#000000;">В «Эльбрус-4С» реализован режим x86-совместимости</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Несмотря на то, что новые «Эльбрус» также предназначаются и для использования в обычных домашних компьютерах, их главной сферой применения все еще является военная отрасль и промышленные компьютеры. Поэтому, как и прежде, инженеры МЦСТ уделили особое внимание вопросу безопасности новых кристаллов. Одной из самых известных уязвимостей является переполнение буфера, которое возникает, когда процессор записывает данные за пределами выделенного в памяти пространства. Это позволяет злоумышленникам запускать на компьютере произвольный программный код. AMD и Intel уже давно борются с проблемой посредством своих технологий No eXecute Bit и Execute Disable Bit, но их эффективность не так высока, как хотелось бы.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Разработчики МЦСТ в целях повышения безопасности пошли иным путем. Процессоры «Эльбрус-4С» поддерживают так называемое защищенное исполнение программ. Его суть заключается в том, чтобы гарантировать работу приложения только с инициализированными данными, проверять все обращения в память на принадлежность к допустимому диапазону адресов, обеспечивать межмодульную защиту (например, защищать вызывающее ПО от ошибки в библиотеке). Эти проверки осуществляются аппаратно.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Тут же стоит отметить и другую интересную функцию безопасности новых процессоров. В кристаллах «Эльбрус-4С» стек связующей информации (цепочка адресов возврата при процедурных вызовах) отделен от стека пользовательских данных и недоступен для таких вирусных атак, как подмена адреса возврата. При этом разработчики подчеркивают, что на сегодняшний день вирусов для платформы «Эльбрус» попросту не существует.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Технические_характеристики_«Эльбрус-4С»"></a><span style=" font-size:x-large; font-weight:600;">Т</span><span style=" font-size:x-large; font-weight:600;">ехнические характеристики «Эльбрус-4С»</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В сравнении со своим предшественником процессор «Эльбрус-4С» сделал значительный шаг вперед. Помимо увеличения количества ядер до четырех, он получил множество других улучшений.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="2">
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Технологический процесс</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">65 нм</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рабочая тактовая частота</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">800 МГц</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Число ядер архитектуры Эльбрус</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пиковая производительность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 разряда, GFLOPS –­ 25</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">32 разряда, GFLOPS – 50</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память команд 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">128 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память данных 1-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">64 Кбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Кэш-память 2-го уровня</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">8 Мбайт</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Организация оперативной памяти</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">До 3 каналов DDR3-1600 ECC</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность каналов оперативной памяти</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">38,4 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Каналы межпроцессорного обмена </p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3, дуплексные</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Пропускная способность каждого канала межпроцессорного обмена</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">12 Гбайт/с</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Площадь кристалла</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">380 мм<span style=" vertical-align:super;">2</span></p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Количество транзисторов</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">986 млн</p></td></tr>
+<tr>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Рассеиваемая мощность</p></td>
+<td style=" vertical-align:top;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">До 60 Вт</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Прежде всего нужно отметить, что производство процессора было переведено на 65-нм техпроцесс. Тактовая частота CPU возросла до 800 МГц. Удвоился объем кэш-памяти команд первого уровня, теперь он составляет 128 Кбайт. А объем кэш-памяти второго уровня составляет 8 Мбайт (против 1 Мбайт у «Эльбрус-2С+»). Также значительно выросла пропускная способность каналов оперативной памяти. Эти изменения позволили добиться внушительной прибавки производительности новых процессоров. Так, в 64-разрядном режиме пиковая производительность составляет 25 ГФЛОПС, что более чем в три раза выше, чем показатель «Эльбрус-2С+». В 32-разрядном режиме производительность достигла отметки 50 ГФЛОПС. Вместе с тем возросла и сложность кристалла. «Эльбрус-4С» содержит 986 млн транзисторов, а его полезная площадь составляет 380 мм<span style=" vertical-align:super;">2</span>.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Ближайшее_будущее_процессоров_«Эльбрус»"></a><span style=" font-size:x-large; font-weight:600;">Б</span><span style=" font-size:x-large; font-weight:600;">лижайшее будущее процессоров «Эльбрус»</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Компания МЦСТ ни в коем случае не планирует снижать темпы разработки и выпуска новых решений. На 2015 год уже запланирован анонс восьмиядерного 28-нм процессора «Эльбрус-8С». Кристалл оснастят 4 Мбайт кэш-памяти второго уровня и 16 Мбайт кэш-памяти третьего уровня, а его тактовая частота составит 1300 МГц. При этом пиковая производительность достигнет отметки 250 ГФЛОПС. Планируется, что «Эльбрус-8С» будет работать в связке с контроллером периферийных устройств второго поколения (КПИ-2), который будет отличаться увеличенной до 16 Гбайт/с пропускной способностью.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Однако 8-ядерный чип является не единственным находящимся в разработке процессором МЦСТ. Компания также «допиливает» экономичный «одноголовый» чип «Эльбрус-1С+», предназначенный для использования в ноутбуках, терминалах и промышленной автоматике. Его отличительной особенностью является наличие встроенного видеоядра с поддержкой аппаратного ускорения 3D-видео. Процессор будет выпускаться в соответствии с 40-нм технологическими нормами. Производительность ядра составит около 24 ГФЛОПС, а встроенного видео — около 28 ГФЛОПС. «Эльбрус-1С+» также будет совместим с новым «южным мостом» КПИ-2, а его энергопотребление составит не более 10 Вт. Выпуск этого процессора также запланирован на 2015 год.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="Заключение"></a><span style=" font-size:x-large; font-weight:600;">З</span><span style=" font-size:x-large; font-weight:600;">аключение</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Подробное изучение архитектуры процессора «Эльбрус-4С» оставило после себя двоякое впечатление. С одной стороны, не будем лукавить, по многим параметрам она является устаревшей и значительно отстает от продукции AMD и Intel. С другой стороны, отечественная электроника уже давно находится в периоде застоя, поэтому было бы глупо ожидать, что в такой ситуации процессоры МЦСТ смогут составить хоть какую-то конкуренцию западным разработкам. И здесь главное понимать, что предпринимаются реальные попытки возродить отечественную индустрию электроники. В такой ситуации выпуск «Эльбрус-4С» — очень большой шаг вперед. Тем более, что в архитектуре реализовано несколько очень интересных технологий, а со своими задачами в оборонной отрасли он справляется более чем уверенно.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">У компании МЦСТ большие планы на будущее. Это и выпуск процессоров «Эльбрус-8С», и «Эльбрус-1С+». Так что следующий год во многом покажет, насколько конкурентоспособной окажется российская отрасль микроэлектроники.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
