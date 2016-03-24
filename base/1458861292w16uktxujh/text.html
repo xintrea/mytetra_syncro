@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Один из пользователей pikabu.ru написал следующее: я прямо на роутере настроил shell-скрипт, который при запуске подтягивает базу популярных рекламных ссылок, как пример - <a href="http://hosts-file.net/ad_servers.txt"><span style=" text-decoration: underline; color:#0000ff;">http://hosts-file.net/ad_servers.txt</span></a> и прописывает их в черный список. Таким образом на всей домашней сети реклама у меня отсутствует как вид.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">В прошивке DD-WRT можно исполнять shell-скрипты. Вот кусок документации, взятой из русскоязычной WIKI <a href="https://www.dd-wrt.com/wiki/index.php/Scripting/ru/startsh_%D0%92%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5_%D1%81%D0%BA%D1%80%D0%B8%D0%BF%D1%82%D0%BE%D0%B2"><span style=" text-decoration: underline; color:#0000ff;">отсюда</span></a>:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Введение</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Программа на языке shell часто называют скриптами или сценариями(Script). С помощью shell Вы можете создавать сложные программы, конструируя их, как из кирпичиков, из существующих утилит UNIX. Интерпретатор считывает строки из файла-скрипта и выполняет их, как если бы они были введены пользователем в командной строке. Иногда необходимо, чтобы сценарии выполнялись автоматически, эта статья объясняет, что происходит в момент запуска скрипта. </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Общая информация </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">По умолчанию DD-WRT осуществляет поиск в 4 директориях: </p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">/etc/config/</span> </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">/jffs/etc/config/</span> </li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">/mmc/etc/config/</span> </li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-style:italic;">/tmp/etc/config/</span> </li></ul>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Типы сценария </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для правильной работы<span style=" vertical-align:super;">1</span> каждое приложение помещённое в одну из директорий должно иметь расширение..<br />Каждое расширение имеет значение. <br /><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="5">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Расширение</span> </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">'<span style=" font-style:italic;">Значение</span> </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">.startup </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет выполняться при системном запуске, обычно время начальной загрузки и <span style=" font-weight:600;">перед</span> настройкой брандмауэра. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">.prewall </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет выполняться всякий раз, когда интерфейс WAN восстанавливает работоспособность и <span style=" font-weight:600;">перед</span> брандмауэром. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">. wanup </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет выполняться всякий раз, когда интерфейс WAN восстанавливает работоспособность и <span style=" font-weight:600;">после</span> брандмауэра.<span style=" vertical-align:super;">2</span> </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">.if </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">будет выполняться всякий раз, когда любой из интерфейсов восстанавливает работоспособность и <span style=" font-weight:600;">после</span> брандмауэра. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">. ipup </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">запускается, когда соединение PPP восстановлено после разъединения и <span style=" font-weight:600;">после</span> брандмауэра. </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">. ipdown </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">запускается, когда соединение PPP было выключено </p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">. sesbutton </p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">выполняется, при [<a href="http://www.dd-wrt.com/wiki/index.php/SES_Button"><span style=" text-decoration: underline; color:#0000ff;">SES Button|SES/AOSS/EZ-SETUP button</span></a>] нажатии </p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:super;">1 </span><span style=" font-style:italic;">Все файлы должны должны быть исполняемыми, к каждому из которых устанавливаються права доступа. Для этого используется команда chmod(1).</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><span style=" vertical-align:super;">2 </span><span style=" font-style:italic;">Сценарии .wanup могут выполняться несколько раз, во время загрузки маршрутизатора. </span><a href="http://www.dd-wrt.com/phpBB2/viewtopic.php?p=433984"><span style=" font-style:italic; text-decoration: underline; color:#0000ff;">[1]</span></a> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Добавление директорий или сценириев </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для выполнения сценария с различными расширениями или теми, которые расположены в другом каталоге, можно создать скрипт.<span style=" vertical-align:super;">3</span> </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">for I in `/bin/ls /jffs/etc/config/*.myextension`;do</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">   sh $I &amp;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">done</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Команда <span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">sh/jffs/etc/config/*.myextension</span> выполнит каждый сценарий, заканчивающийся на .myextension, найденном в каталоге <span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">/jffs/etc/config</span>. </p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" vertical-align:super;">3 </span><span style=" font-style:italic;">Меняем путь (/jffs/etc/config) и расширение на свои.</span> </p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:x-large; font-weight:600;">Автозагрузки при старте маршрутизатора </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">За запуск при старте отвечает переменная rc_startup, которой присваивается значение. Выполняется в коммандной строке. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">~# nvram set rc_startup=&quot;/jffs/etc/config/*.myextension&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">~# nvram commit</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">~# echo &quot;/jffs/dir/my_scripts &amp;&quot; &gt;&gt; /jffs/etc/config/*.myextension</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для задержки используется ключ =&quot;sleep&quot; </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">~# nvram set rc_startup=&quot;sleep 30; /jffs/etc/config/*.myextension&quot;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier 10 Pitch'; color:#6a0e07;">~# nvram commit</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Courier New,courier';"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#000000;">Осталось разобраться, какой скрипт имел в виду автор.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#000000;"><br /></p></body></html>
