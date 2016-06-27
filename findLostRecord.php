@@ -74,7 +74,7 @@
   // Печать результата для зашифрованных данных
   foreach($cryptRecord as $recordDirName)
   {
-    echo '<record id="'.getUnicalId().'" dir="'.$recordDirName.'" name="UkM1U0lNUANJJr1QDtzEJXdA1KTV41/vunEmn+fAYpJDFyv1+uIqRNsaEfDm6IeYwjB+7+Avkl4=" file="text.html" ctime="20101114163214"/>'."\n";
+    echo '<record id="'.getUnicalId().'" dir="'.$recordDirName.'" name="UkM1U0lNUANJJr1QDtzEJXdA1KTV41/vunEmn+fAYpJDFyv1+uIqRNsaEfDm6IeYwjB+7+Avkl4=" file="text.html" ctime="20101114163214" crypt="1"/>'."\n";
   }
 
   function findRecordByDirName($mode, $element, $dirName)
