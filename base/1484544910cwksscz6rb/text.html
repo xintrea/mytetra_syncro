@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Arial'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Начать, видимо, следует с того, что речь пойдет об интерпретаторе CPython версии 2.7.x (примеры проверялись на версии 2.7.3).<br /><br />На официальном сайте имеются описания инструкции import и модулей в Python:<br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://docs.python.org/2/reference/simple_stmts.html#import"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/reference/simple_stmts.html#import</span></a></li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://docs.python.org/2/tutorial/modules.html"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/tutorial/modules.html</span></a></li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Из них следует, что в Python имеются пакеты (package), модули (module) и имена, определенные в модулях (names). Также следует отметить, что в некоторых частях документации модули называются подмодулями (submodule), если они размещены внутри пакета.<br /><br />В языке Python инструкция import позволяет импортировать пакеты, модули и имена в пространство имен, в котором инструкция import выполняется. При это существует две интересные особенности:<br /></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Из синтаксиса инструкции import не всегда явно следует, что именно должно быть импортированно: пакет, модуль или имя</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Синтаксисом инструкции import невозможно явно указать, что путь к модулю является абсолютным путем (хотя явно указать, что путь является относительным можно, а также возможно изменение семантики инструкции, в части использования абсолютного пути по умолчанию, см. <a href="http://www.python.org/dev/peps/pep-0328/"><span style=" text-decoration: underline; color:#0000ff;">www.python.org/dev/peps/pep-0328</span></a> )</li></ol>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Из этих двух особенностей следуют такие неоднозначности для записи import abcd:<br /></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Импортировать ПАКЕТ abcd, либо импортировать МОДУЛЬ abcd</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Импортировать пакет/модуль abcd из ТЕКУЩЕГО ПАКЕТА (из пакета того модуля, в котором исполняется import abcd), либо ИЗ ПАКЕТА в соответствии с перечнем каталогов, указанных в sys.path</li></ol>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Еще примеры неоднозначностей:<br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">from abcd import defg: (импортировать модуль defg из пакета abcd, либо импортировать пакет defg из пакета abcd, либо импортировать имя defg из пакета abcd, либо импортировать имя defg из модуля abcd) X (из того же пакета, либо из пакета в соответствии с sys.path)</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">import abcd.defg: (импортировать пакет defg из пакета abcd, импортировать модуль defg из пакета abcd) X (из того же пакета, либо из пакета в соответствии с sys.path)</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Для разрешения эти декларативных неоднозначностей должен существовать императивный алгоритм. Такой алгоритм в некотором виде описан в официальной документации Python.<br /><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Алгоритм поиска имен для import abcd</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Поиск имени abcd для импорта происходит по следующему алгоритму:<br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="80%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">№</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Что ищем</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Где ищем*</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Комментарий</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пакет abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете текущего модуля (модуля, в котором исполняется import abcd)</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">только, если текущий модуль сам содержится в пакете**</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">модуль abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете текущего модуля (модуля, в котором исполняется import abcd)</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">только, если текущий модуль сам содержится в пакете**</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">модуль abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">во встроенных (built-in) модулях</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ссылка на документацию указана в ***</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пакет abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в каталогах, указанных в sys.path</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ссылка на документацию указана в ****</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">модуль abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в каталогах, указанных в sys.path</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ссылка на документацию указана в ****</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br />Дальнейший поиск прекращается в случае успешного поиска пакета на одном из выше перечисленных шагов.<br /><br />* Информация о приоритете поиска пакета над модулем установленая опытным путем, в документации это явно не указано.<br /><br />** В этом случае переменная __package__ этого модуля равна названию пакета, иначе она равна None.<br />Ссылка на документцию:<br /><a href="http://docs.python.org/2/tutorial/modules.html#intra-package-references"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/tutorial/modules.html#intra-package-references</span></a><br />“In fact, such references are so common that the import statement first looks in the containing package before looking in the standard module search path.”<br /><br />(!!!) Здесь стоит заметить отсутствие упоминания данного факта в другом месте того же документа (http://docs.python.org/2/tutorial/modules.html#the-module-search-path), что вводит в заблуждение (см. <a href="http://bugs.python.org/issue16891"><span style=" text-decoration: underline; color:#0000ff;">bugs.python.org/issue16891</span></a>).<br /><br />(!!!) Второе, что следует отметить — это что данный шаг поиска присутствует только в случае, если модуль, в котором исполняется import abcd сам импортирован из пакета (т.е. с помощью инструкции import &lt;имя пакета&gt;.&lt;имя модуля&gt;). В случаях импорта этого модуля без указания пакета, либо выполнения модуля как скрипта данный шаг будет пропущен. Это отражено в документе <a href="http://www.python.org/dev/peps/pep-0302/#id23"><span style=" text-decoration: underline; color:#0000ff;">www.python.org/dev/peps/pep-0302/#id23</span></a>:<br />“The built-in __import__ function (known as PyImport_ImportModuleEx() in import.c) will then check to see whether the module doing the import is a package or a submodule of a package. If it is indeed a (submodule of a) package, it first tries to do the import relative to the package (the parent package for a submodule). For example if a package named «spam» does «import eggs», it will first look for a module named «spam.eggs». If that fails, the import continues as an absolute import: it will look for a module named «eggs».”<br /><br />*** <a href="http://docs.python.org/2/tutorial/modules.html#the-module-search-path"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/tutorial/modules.html#the-module-search-path</span></a><br />“When a module named spam is imported, the interpreter first searches for a built-in module with that name.”<br /><br />**** <a href="http://docs.python.org/2/tutorial/modules.html#the-module-search-path"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/tutorial/modules.html#the-module-search-path</span></a><br />“If not found, it then searches for a file named spam.py in a list of directories given by the variable sys.path.”<br /><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Алгоритм поиска имен для import abcd.defg</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br />Сначала производится поиск пакета или модуля abcd в соответствии с алгоритмом, описанным для import abcd.<br /><br />Если поиск успешный, то выполняется поиск пакета или модуля defg в соответствии со следующим алгоритмом:<br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="80%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">№</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Что ищем</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Где ищем*</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Комментарий</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пакет defg</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ссылка на документацию указана в **</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">модуль defg</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете abcd</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">ссылка на документацию указана в **</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />* В случае, если в результате поиска abcd, последний оказался модулем, то импорт закончится ошибкой ImportError: No module named defg, т.к. модуль не может содержать другие модули, либо пакеты:<br /><a href="http://docs.python.org/2/reference/simple_stmts.html#import"><span style=" text-decoration: underline; color:#0000ff;">docs.python.org/2/reference/simple_stmts.html#import</span></a>: “A package can contain other packages and modules while modules cannot contain other modules or packages.”<br />** <a href="http://www.python.org/dev/peps/pep-0302/#id23"><span style=" text-decoration: underline; color:#0000ff;">www.python.org/dev/peps/pep-0302/#id23</span></a><br />“Deeper down in the mechanism, a dotted name import is split up by its components. For «import spam.ham», first an «import spam» is done, and only when that succeeds is «ham» imported as a submodule of «spam».”<br /><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Алгоритм поиска имен для from abcd.defg import ghi</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br />Сначала производится поиск пакета или модуля abcd.defg в соответствии с алгоритмом, описанным для import abcd.defg:<br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="80%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">№</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Что ищем</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Где ищем</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">имя ghi</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете или модуле defg</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">пакет ghi</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете defg</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">модуль ghi</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в пакете defg</p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Перекрытие имен</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /><br />Хочу отметить одну интересную особенность, которая следует из последовательного применения перечисленных выше алгоритмов. Представьте следующую ситуацию: существует модуль с именем abcd и пакет с именем abcd, содержащий, в свою очередь, модуль defg, модуль abcd и пакет abcd размещены в разных каталогах, при этом модуль abcd размещен в том же пакете, что и модуль, в котором выполняется инструкция import abcd.defg. В этом случае выполнение импорта завершится с ошибкой. Это связано с тем, что интерпретатор Python сначала найдет модуль abcd, потом попытается искать в нем модуль defg, что невозможно.<br /><br />Разумнее было бы определить из синтаксиса инструкции import, что abcd может быть только пакетом (т.к. все элементы до точки могут являться только пакетами) и искать abcd только как пакет. В этом случае пакет abcd был бы импортирован из другого каталога, а в нем был бы обнаружен модуль defg и выполнение программы продолжилось бы без ошибок.<br /><br />К сожалению, такое поведение Python не реализовано. См. <a href="http://bugs.python.org/issue16891#msg179353"><span style=" text-decoration: underline; color:#0000ff;">bugs.python.org/issue16891#msg179353</span></a>.<br /><br />Автор статьи столкнулся с данной проблемой, но в связи разразненностью описания в официальной документации Python потребовалось некорое время для выяснения причин такого поведения интерпретатора. В результате возникли следующие обсуждения <a href="http://stackoverflow.com/questions/14183541/why-python-finds-module-instead-of-package-if-they-have-the-same-name"><span style=" text-decoration: underline; color:#0000ff;">stackoverflow.com/questions/14183541/why-python-finds-module-instead-of-package-if-they-have-the-same-name</span></a> и <a href="http://bugs.python.org/issue16891"><span style=" text-decoration: underline; color:#0000ff;">bugs.python.org/issue16891</span></a>, а также написана данная статья.<br /><br />В случае возникновения подобных коллизий имен возможны следующие решения:<br /></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Переименовать модуль, либо пакет таким образом, чтобы имя пакета не совпадало с именем модуля, т.е. исключить совпадение имен</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Иногда может помочь включение абсолютных путей по умолчанию для импорта с помощью инструкции from __future__ import absolute_import (на самом деле в этом случае, лишь повышается контроль за последовательностью поиска пакетов и модулей путем внесения изменений в sys.path)</li></ol>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Приложение: исходный код</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />В этом репозитории находится исходный код, демонстрирующий описанные выше алгоритмы: <a href="https://bitbucket.org/dmugtasimov/python_import"><span style=" text-decoration: underline; color:#0000ff;">bitbucket.org/dmugtasimov/python_import</span></a>.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
