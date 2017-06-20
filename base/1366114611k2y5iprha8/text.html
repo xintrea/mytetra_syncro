@@ -1,269 +1,281 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 <html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
 p, li { white-space: pre-wrap; }
-</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:xx-large; font-weight:600;">Программная расстановка коэффициентов в химических уравнениях</span></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Введение</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Все, кто когда-нибудь изучал химию, знают, что это наука сложная и в многих моментах не совсем понятная. Например, у учеников средних и старших классов часто возникают проблемы с решением химических задач и уравнений. Поэтому они часто ищут ответ на задание с помощью химических калькуляторов. Но большинство программ этого класса нельзя назвать калькулятором — они не считают, а только проверяют результат в базе данных. Этот способ имеет очень большой недостаток — программа не выдаст результат, если уравнения реакции не будет в базе. Поэтому есть необходимость использовать алгоритм, который даст возможность находить коэффициенты программно. И такой алгоритм существует.<a name="habracut"></a><br /><br /></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Алгоритм расстановки коэффициентов</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Возьмём для примера уравнение KMnO<span style=" vertical-align:sub;">4</span>+K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">3</span>+H<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span>-&gt;K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span>+MnSO<span style=" vertical-align:sub;">4</span>+H<span style=" vertical-align:sub;">2</span>O<br />Сначала нужно построить для него матрицу. Молекулы используются в качестве столбца, атомы — в качестве строки. В ячейку записывается количество атомов в молекуле. Сначала разбираем левую часть. Должно получиться так:<br /></p>
+</style></head><body style=" font-family:'Arial'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:600;">Программная расстановка коэффициентов в химических уравнениях</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:600;">Введение</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br />Все, кто когда-нибудь изучал химию, знают, что это наука сложная и в многих моментах не совсем понятная. Например, у учеников средних и старших классов часто возникают проблемы с решением химических задач и уравнений. Поэтому они часто ищут ответ на задание с помощью химических калькуляторов. Но большинство программ этого класса нельзя назвать калькулятором — они не считают, а только проверяют результат в базе данных. Этот способ имеет очень большой недостаток — программа не выдаст результат, если уравнения реакции не будет в базе. Поэтому есть необходимость использовать алгоритм, который даст возможность находить коэффициенты программно. И такой алгоритм существует.</span><a name="habracut"></a><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br /></span><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br /></span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:600;">Алгоритм расстановки коэффициентов</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br />Возьмём для примера уравнение KMnO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-&gt;K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+MnSO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O<br />Сначала нужно построить для него матрицу. Молекулы используются в качестве столбца, атомы — в качестве строки. В ячейку записывается количество атомов в молекуле. Сначала разбираем левую часть. Должно получиться так:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
 <table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
 <tr>
 <td></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">KMnO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">KMnO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">3</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span></p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Mn</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Mn</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">O</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">S</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td></tr></table>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Затем таким же образом обрабатываем правую часть уравнения, но с одним отличием — ставить нужно отрицательное число. После этого матрица должна обрести такой вид:<br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Затем таким же образом обрабатываем правую часть уравнения, но с одним отличием — ставить нужно отрицательное число. После этого матрица должна обрести такой вид:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
 <table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
 <tr>
 <td></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">KMnO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">KMnO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">3</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MnSO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">MnSO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H<span style=" vertical-align:sub;">2</span>O</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Mn</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Mn</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">O</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">S</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-2</p></td></tr></table>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Эту матрицу уже можно решать. Но ответ, который мы получим, может быть правильным с точки зрения математики, а не химии. Поэтому к матрице нужно добавить ещё одну строку, в которой будет записана информация об электронном балансе. В данном примере должно быть так:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />K<span style=" vertical-align:super;">+1</span>Mn<span style=" vertical-align:super;">+7</span>O<span style=" vertical-align:sub;">4</span><span style=" vertical-align:super;">-2</span>+K<span style=" vertical-align:sub;">2</span><span style=" vertical-align:super;">+1</span>S<span style=" vertical-align:super;">+4</span>O<span style=" vertical-align:sub;">3</span><span style=" vertical-align:super;">-2</span>+H<span style=" vertical-align:sub;">2</span><span style=" vertical-align:super;">+1</span>S<span style=" vertical-align:super;">+6</span>O<span style=" vertical-align:sub;">4</span><span style=" vertical-align:super;">-2</span>-&gt;K<span style=" vertical-align:sub;">2</span><span style=" vertical-align:super;">+2</span>S<span style=" vertical-align:super;">+6</span>O<span style=" vertical-align:sub;">4</span><span style=" vertical-align:super;">-2</span>+Mn<span style=" vertical-align:super;">+2</span>S<span style=" vertical-align:super;">+6</span>O<span style=" vertical-align:sub;">4</span><span style=" vertical-align:super;">-2</span>+H<span style=" vertical-align:sub;">2</span><span style=" vertical-align:super;">+1</span>O<span style=" vertical-align:super;">-2</span><br />Mn<span style=" vertical-align:super;">+7</span>+ 5e -&gt; Mn<span style=" vertical-align:super;">+2</span><br />S<span style=" vertical-align:super;">+4</span> — 2e -&gt; S<span style=" vertical-align:super;">+6</span><br /></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Как видим, Mn первой молекулы получил 5е, а S второй молекулы отдал 2е. Добавляем в матрицу ещё одну строку</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-2</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Эту матрицу уже можно решать. Но ответ, который мы получим, может быть правильным с точки зрения математики, а не химии. Поэтому к матрице нужно добавить ещё одну строку, в которой будет записана информация об электронном балансе. В данном примере должно быть так:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+1</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Mn</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+7</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+1</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+1</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+6</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-&gt;K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+6</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+Mn</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+6</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+1</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">-2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br />Mn</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+7</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+ 5e -&gt; Mn</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br />S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;"> — 2e -&gt; S</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;">+6</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt; vertical-align:super;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Как видим, Mn первой молекулы получил 5е, а S второй молекулы отдал 2е. Добавляем в матрицу ещё одну строку</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
 <table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
 <tr>
 <td></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">KMnO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">KMnO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">3</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MnSO<span style=" vertical-align:sub;">4</span></p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">MnSO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H<span style=" vertical-align:sub;">2</span>O</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Mn</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Mn</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">K</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">K</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">O</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">3</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">3</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-4</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-4</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">S</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">S</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr>
 <tr>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">H</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">H</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">1</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-2</p></td></tr>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-2</span></p></td></tr>
 <tr>
 <td></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">5</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">5</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">-2</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">-2</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">0</p></td></tr></table>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Теперь уже можно решать матрицу. Самый удобный и быстродействующий способ — <a href="http://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%93%D0%B0%D1%83%D1%81%D1%81%D0%B0"><span style=" text-decoration: underline; color:#0000ff;">метод Гаусса</span></a>. Полученные данные подставляем в уравнение. Должно получиться так:<br />2KMnO<span style=" vertical-align:sub;">4</span>+5K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">3</span>+3H<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span>=6K<span style=" vertical-align:sub;">2</span>SO<span style=" vertical-align:sub;">4</span>+2MnSO<span style=" vertical-align:sub;">4</span>+3H<span style=" vertical-align:sub;">2</span>O<br /><br /></p>
-<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:medium; font-weight:600;">Выводы</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Таким образом, коэффициенты для химического уравнения можно получить, не прибегая к созданию базы данных, а просто сделав весьма простые вычисления. Нужно также уточнить, что расчёт производится крайне быстро (задержка менее 1 мс), что даёт возможность использовать этот алгоритм не только на ПК, но и на мобильных телефонах. </p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"></p></body></html>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">0</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">Теперь уже можно решать матрицу. Самый удобный и быстродействующий способ — </span><a href="http://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%93%D0%B0%D1%83%D1%81%D1%81%D0%B0"><span style=" font-family:'DejaVu Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;">метод Гаусса</span></a><span style=" font-family:'DejaVu Sans'; font-size:10pt;">. Полученные данные подставляем в уравнение. Должно получиться так:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;">2KMnO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+5K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">3</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+3H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">=6K</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">SO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+2MnSO</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">4</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">+3H</span><span style=" font-family:'DejaVu Sans'; font-size:10pt; vertical-align:sub;">2</span><span style=" font-family:'DejaVu Sans'; font-size:10pt;">O</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:600;">Выводы</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu Sans'; font-size:10pt;"><br />Таким образом, коэффициенты для химического уравнения можно получить, не прибегая к созданию базы данных, а просто сделав весьма простые вычисления. Нужно также уточнить, что расчёт производится крайне быстро (задержка менее 1 мс), что даёт возможность использовать этот алгоритм не только на ПК, но и на мобильных телефонах. </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:10pt;"><br /></p></body></html>
