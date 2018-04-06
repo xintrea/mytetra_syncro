@@ -1,0 +1,12 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Нашел такое решение для себя.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">использую утилитку psexec и батник с сообщением, батник потому что проблемы с кодировкой при передаче кириллицы через psexec</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1. cmd - &gt; psexec \\&lt;имя компа/ip адресс&gt; Msg * &lt;текст сообщения&gt; - psexec зайдет на комп и выполнит команду Msg, сообщение увидит залогиненый пользователь. (но кириллица у меня не работает)</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">2. для отправки кирилицы psexec \\&lt;имя компа/ip адресс&gt; -i -s -c &lt;путь к батнику на вашем компе&gt; </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в батнике пишем Msg * &lt;текст сообщения&gt; - уже можно на русском. psexec скопирует батник на удаленный комп и выполнит его оттуда и проблем с кодировкой не будет.</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Чтобы отправить конкретному юзеру, нужно найти где он залогинен. для этого можно при событии logon запускать батник, и создавать типа базу данных кто куда входит</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">echo logon %computername% %date% %time% &gt;&gt; \\путь куда ложить логи\%username%.txt</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">открываем лог нужного пользователя и видим на какой комп слать мессадж.</p></body></html>

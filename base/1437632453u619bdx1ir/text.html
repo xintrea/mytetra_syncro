@@ -1,0 +1,693 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Get-ADUser возвращает лишь 17 из 110 атрибутов и свойств, привязанных к учетной записи пользователя AD, но это можно исправить, добавив параметр -properties (или -pr) к предложению Get-ADUser.</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Courier New'; color:#6a1009;">get-aduser -f &quot;title -like 'teach*'&quot; </span><span style=" font-family:'Courier New'; font-weight:600; color:#6a1009;">-properties office, title</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Полный список атрибутов представлен в стедующей таблице:</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" width="95%" cellspacing="2" cellpadding="1">
+<tr>
+<td bgcolor="#f5deb3" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">Property</span></p></td>
+<td bgcolor="#f5deb3" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">Syntax</span></p></td>
+<td bgcolor="#f5deb3" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">R/RW</span></p></td>
+<td bgcolor="#f5deb3" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">lDAPDisplayName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">AccountExpirationDate</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">accountExpires, converted to local time</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">AccountLockoutTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">lockoutTime, converted to local time</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">AccountNotDelegated</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 1048576)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">AllowReversiblePasswordEncryption</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 128)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">BadLogonCount</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Int32</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">badPwdCount</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">CannotChangePassword</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">nTSecurityDescriptor</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">CanonicalName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">canonicalName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Certificates</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">ADCollection</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userCertificate</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ChangePasswordAtLogon</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">W</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">If pwdLastSet = 0</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">City</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">l</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">CN</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">cn</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Company</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">company</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Country</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">c (2 character abbreviation)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Created</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">whenCreated</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Deleted</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">isDeleted</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Department</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">department</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Description</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">description</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">DisplayName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">displayName</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">DistinguishedName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String (DN)</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">distinguishedName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Division</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">division</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">DoesNotRequirePreAuth</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 4194304)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">EmailAddress</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">mail</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">EmployeeID</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">employeeID</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">EmployeeNumber</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">employeeNumber</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">Enabled</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask not 2)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Fax</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">facsimileTelephoneNumber</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">GivenName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">givenName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">HomeDirectory</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">homeDirectory</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">HomedirRequired</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 8)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">HomeDrive</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">homeDrive</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">HomePage</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">wWWHomePage</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">HomePhone</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">homePhone</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Initials</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">initials</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">LastBadPasswordAttempt</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">badPasswordTime, converted to local time</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">LastKnownParent</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String (DN)</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">lastKnownParent</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">LastLogonDate</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">lastLogonTimeStamp, converted to local time</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">LockedOut</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">msDS-User-Account-Control-Computed (bit mask 16)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">LogonWorkstations</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userWorkstations</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Manager</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String (DN)</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">manager</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">MemberOf</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">ADCollection</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">memberOf</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">MNSLogonAccount</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 131072)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">MobilePhone</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">mobile</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Modified</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">whenChanged</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">Name</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">cn (Relative Distinguished Name)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ObjectCategory</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">objectCategory</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">ObjectClass</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">objectClass, most specific value</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">ObjectGUID</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Guid</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">objectGUID converted to string</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Office</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">physicalDeliveryOfficeName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">OfficePhone</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">telephoneNumber</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Organization</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">o</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">OtherName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">middleName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PasswordExpired</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">msDS-User-Account-Control-Computed (bit mask 8388608)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PasswordLastSet</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">DateTime</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">pwdLastSet, local time</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PasswordNeverExpires</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 64</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Вкладка &quot;Учетная запись&quot;, поле &quot;Параметры учетной записи&quot;, галка &quot;Срок действия пароля не ограничен&quot;</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PasswordNotRequired</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 32)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">POBox</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">postOfficeBox</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PostalCode</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">postalCode</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">PrimaryGroup</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Group with primaryGroupToken</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ProfilePath</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">profilePath</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ProtectedFromAccidentalDeletion</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">nTSecurityDescriptor</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">SamAccountName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">sAMAccountName</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ScriptPath</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">scriptPath</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">ServicePrincipalNames</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">ADCollection</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">servicePrincipalName</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">SID</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Sid</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">objectSID converted to string</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">SIDHistory</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">ADCollection</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">R</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">sIDHistory</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">SmartcardLogonRequired</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 262144)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">State</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">st</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">StreetAddress</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">streetAddress</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">Surname</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">sn</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">Title</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">title</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">TrustedForDelegation</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 524288)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">TrustedToAuthForDelegation</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 16777216)</span></p></td></tr>
+<tr>
+<td bgcolor="#ffc0cb" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f; background-color:#ffc0cb;">UseDESKeyOnly</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">Boolean</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userAccountControl (bit mask 2097152)</span></p></td></tr>
+<tr>
+<td bgcolor="#00ffff" style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; font-weight:600; color:#2f4f4f;">UserPrincipalName</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">String</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">RW</span></p></td>
+<td style=" padding-left:5;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'courier new'; font-size:11px; color:#2f4f4f;">userPrincipalName</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
