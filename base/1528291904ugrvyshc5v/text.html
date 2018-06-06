@@ -2,8 +2,8 @@
 <html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
 p, li { white-space: pre-wrap; }
 </style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">Serial Programming Guide for POSIX Operating Systems</span></p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;"><br />5th Edition<br />Michael R. Sweet<br />Copyright 1994-1999, All Rights Reserved.<br />Перевод А.Гавва<br />2002 Львов </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:14pt; font-weight:600;">Serial Programming Guide for POSIX Operating Systems</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />5th Edition<br />Michael R. Sweet<br />Copyright 1994-1999, All Rights Reserved.<br />Перевод А.Гавва<br />2002 Львов </p>
 <hr />
 <p align="right" style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="1"></a><span style=" font-family:'Sans'; font-size:xx-large; font-weight:600;">В</span><span style=" font-family:'Sans'; font-size:xx-large; font-weight:600;">ведение</span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Данное руководство: &quot;The Serial Programming Guide for POSIX Operating Systems&quot; - покажет вам как правильно, эффективно и переносимо программировать последовательные порты на вашей рабочей станции UNIX® и/или PC. Каждая глава предусматривает примеры программ которые используют POSIX (Portable Standard for UNIX) функции управления терминалом, и которые, с минимальными изменениями, должны работать на IRIX®, HP-UX, SunOS®, Solaris®, Digital UNIX®, Linux®, и большинстве других UNIX-подобных операционных системах. Наибольшие различия, которые вы обнаружите, затрагивают имена файлов устройств последовательных портов и файлов блокировки. </span></p>
@@ -321,8 +321,10 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Большинство систем поддерживает терминальный (последовательный) интерфейс POSIX для изменения параметров, таких как скорость передачи, размер символов и т.д. Первое что вам необходимо сделать - это включить файл </span><span style=" font-family:'monospace';">&lt;termios.h&gt;</span><span style=" font-family:'Sans';">; это описывает структуру управления терминалом также как и управляющие функции POSIX. </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Две наиболее важные функции POSIX: </span><span style=" font-family:'Sans'; font-style:italic;">tcgetattr(3)</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">tcsetattr(3)</span><span style=" font-family:'Sans';">. Они, соответственно, позволяют получить и установить терминальные атрибуты. Вам необходимо предоставить указатель на структуру </span><span style=" font-family:'Sans'; font-style:italic;">termios</span><span style=" font-family:'Sans';">, которая содержит все доступные опции для последовательного интерфейса. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
-<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 3 - Поля структуры </span><span style=" font-family:'Sans'; font-style:italic;">termios</span><span style=" font-family:'Sans';"> </span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 3 - Поля структуры </span><span style=" font-family:'Sans'; font-style:italic;">termios</span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Поле</span></p></td>
@@ -363,11 +365,14 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">c_ospeed</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Скорость вывода в бодах (новый интерфейс)</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="3_1_1"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">У</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">правляющие опции</span></p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Поле </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';"> управляет скоростью передачи данных, количеством битов данных, четностью, стоп-битами, и установкой аппаратного управления потоком передачи данных. Существуют константы для всех поддерживаемых конфигураций. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 4 - Константы для поля </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';"> </span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -548,6 +553,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">CNEW_RTSCTS <br />CRTSCTS</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Enable hardware flow control (not supported on all platforms)</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Поле </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';"> содержит две опции которые всегда должны быть разрешены: </span><span style=" font-family:'Sans'; font-style:italic;">CLOCAL</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">CREAD</span><span style=" font-family:'Sans';">. Это обеспечит то, что ваша программа не станет 'владельцем' порта, что приводит к случайному получению сигналов управления заданиями или сигналов зависания, а также, что драйвер последовательного интерфейса будет читать приходящие байты данных. </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Константы скорости передачи (</span><span style=" font-family:'Sans'; font-style:italic;">CBAUD</span><span style=" font-family:'Sans';">,</span><span style=" font-family:'Sans'; font-style:italic;"> B9600</span><span style=" font-family:'Sans';">, и т.д.) используются для старых интерфейсов, которые не имеют полей </span><span style=" font-family:'Sans'; font-style:italic;">c_ispeed</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">c_ospeed</span><span style=" font-family:'Sans';">. Смотрите следующий параграф для ознакомления с функциями POSIX для установки скорости передачи. </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Никогда</span><span style=" font-family:'Sans';"> не инициализируйте поле </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';"> (или любой другой флаг) непосредственно; вы </span><span style=" font-family:'Sans'; font-weight:600;">всегда</span><span style=" font-family:'Sans';"> должны использовать битовые операторы AND, OR, или NOT для установки или очистки битовых полей. Различные версии операционных систем (и даже патчи) могут и используют биты по-разному, поэтому использование битовых операторов предотвратит вас от затирания битового флага необходимого в новом последовательном драйвере. </span></p>
@@ -585,7 +591,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Большинство систем не поддерживает различные скорости передачи для ввода и вывода, поэтому убедитесь в установке одинаковой скорости передачи для вводв и вывода в целях обеспечения переносимости. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 5 - Константы для tcsetattr</span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -606,6 +614,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">TCSAFLUSH</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Очистить буфера ввода/вывода и произвести изменения</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Установка размеров символов</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">В отличие от скорости передачи данных, согласованные функции для установки размера пересылаемых символов - отсутствуют. Вместо этого вы должны сначала маскировать биты установки размера символов перед тем как установить в них требуемое значение. Размер символов задается битами: </span></p>
 <p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'monospace';">options.c_cflag &amp;= ~CSIZE; /* Маскирование битов размера символов */</span></p>
@@ -643,7 +652,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Поле локального режима </span><span style=" font-family:'Sans'; font-style:italic;">c_lflag</span><span style=" font-family:'Sans';"> управляет как вводимые символы будут обрабатываться драйвером последовательного порта. В основном, вы будете конфигурировать поле </span><span style=" font-family:'Sans'; font-style:italic;">c_lflag</span><span style=" font-family:'Sans';"> для </span><span style=" font-family:'Sans'; font-style:italic;">канонического</span><span style=" font-family:'Sans';"> или </span><span style=" font-family:'Sans'; font-style:italic;">неканонического</span><span style=" font-family:'Sans';"> (raw) ввода. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 6 - Константы для поля </span><span style=" font-family:'Sans'; font-style:italic;">c_lflag</span><span style=" font-family:'Sans';"> </span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -724,6 +735,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">TOSTOP</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Посылка SIGTTOU для фонового вывода</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Выбор канонического ввода</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Канонический ввод - строчно-ориентированный. Вводимые символы помещаются в буфер который может интерактивно редактироваться пользователем до приема символа CR (carriage return) или LF (line feed). </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">При выборе этого режима вы нормально устанавливаете опции </span><span style=" font-family:'Sans'; font-style:italic;">ICANON</span><span style=" font-family:'Sans';">, </span><span style=" font-family:'Sans'; font-style:italic;">ECHO</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">ECHOE</span><span style=" font-family:'Sans';">: </span></p>
@@ -737,7 +749,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Поле опций ввода </span><span style=" font-family:'Sans'; font-style:italic;">c_iflag</span><span style=" font-family:'Sans';"> управляет любой обработкой ввода которая выполняется над символами принимаемыми из последовательного порта. Также как и в случае поля </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';">, окончательное значение сохраняемое в </span><span style=" font-family:'Sans'; font-style:italic;">c_iflag</span><span style=" font-family:'Sans';"> - это операция побитного OR требуемых опций. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 7 - Константы для поля </span><span style=" font-family:'Sans'; font-style:italic;">c_iflag</span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -813,6 +827,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">IMAXBEL</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Echo BEL on input line too long</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Установка контроля четности ввода</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Вы должны установить проверку контроля четности ввода если вы уже установили проверку четности в поле </span><span style=" font-family:'Sans'; font-style:italic;">c_cflag</span><span style=" font-family:'Sans';"> (</span><span style=" font-family:'Sans'; font-style:italic;">PARENB</span><span style=" font-family:'Sans';">). Значащие константы для проверки четности ввода: </span><span style=" font-family:'Sans'; font-style:italic;">INPCK</span><span style=" font-family:'Sans';">, </span><span style=" font-family:'Sans'; font-style:italic;">IGNPAR</span><span style=" font-family:'Sans';">, </span><span style=" font-family:'Sans'; font-style:italic;">PARMRK</span><span style=" font-family:'Sans';">, и </span><span style=" font-family:'Sans'; font-style:italic;">ISTRIP</span><span style=" font-family:'Sans';">. В основном, вы будуте устанавливать </span><span style=" font-family:'Sans'; font-style:italic;">INPCK</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">ISTRIP</span><span style=" font-family:'Sans';"> для разрешения контроля четности и отбрасывания бита четности: </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'monospace';">options.c_iflag |= (INPCK | ISTRIP); </span></p>
@@ -828,7 +843,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Поле </span><span style=" font-family:'Sans'; font-style:italic;">c_oflag</span><span style=" font-family:'Sans';"> содержит опции фильтрации вывода. Подобно режимам ввода, вы можете выбрать обработанный или не обработанный (raw) вывод данных. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 8 - Константы для поля </span><span style=" font-family:'Sans'; font-style:italic;">c_oflag</span></p>
-<table border="1" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -984,6 +1001,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">FF1</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Delay 2 seconds after sending FFs</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Выбор обработанного вывода</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Обработанный вывод выбирается установкой опции </span><span style=" font-family:'Sans'; font-style:italic;">OPOST</span><span style=" font-family:'Sans';"> в поле </span><span style=" font-family:'Sans'; font-style:italic;">c_oflag</span><span style=" font-family:'Sans';">: </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'monospace';">options.c_oflag |= OPOST; </span></p>
@@ -996,7 +1014,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Символьный массив </span><span style=" font-family:'Sans'; font-style:italic;">c_cc</span><span style=" font-family:'Sans';"> содержит описания управляющих символов и параметры таймаутов. Константы объявлены для каждого элемента этого массива. </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 9 - Управляющие символы в массиве </span><span style=" font-family:'Sans'; font-style:italic;">c_cc</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-style:italic;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -1065,6 +1085,7 @@ p, li { white-space: pre-wrap; }
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Time to wait for data (tenths of seconds)</span></p></td>
 <td></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:medium; font-weight:600;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Установка символов программного управления потоком передаваемых данных</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Элементы </span><span style=" font-family:'Sans'; font-style:italic;">VSTART</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-style:italic;">VSTOP</span><span style=" font-family:'Sans';"> массива </span><span style=" font-family:'Sans'; font-style:italic;">c_cc</span><span style=" font-family:'Sans';"> содержат символы используемые для программного управления потоком передаваемых данных. Обычно они должны быть установлены в DC1 (восьмеричное 021) и DC3 (восьмеричное 023), что представляет стандарт </span><a href="http://www.opennet.ru/docs/RUS/serial_guide/#ascii"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">ASCII</span></a><span style=" font-family:'Sans';"> как символы XON и XOFF. </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:medium; font-weight:600;">Установка таймаутов чтения</span><span style=" font-family:'Sans';"> </span></p>
@@ -1170,7 +1191,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Аргумент </span><span style=" font-family:'Sans'; font-style:italic;">fd</span><span style=" font-family:'Sans';"> указывает файловый дескриптор последовательного порта. Аргумент </span><span style=" font-family:'Sans'; font-style:italic;">request</span><span style=" font-family:'Sans';"> является константой, описанной в файле </span><span style=" font-family:'monospace';">&lt;termios.h&gt;</span><span style=" font-family:'Sans';">, и, обычно, является следующим: </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 10 - IOCTL Запросы к последовательному порту </span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="80%" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="80%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Запрос</span></p></td>
@@ -1248,11 +1271,14 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Вернуть количество байтов в буфере ввода (приемный буфер).</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">None</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="5_1_1"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">П</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">олучение управляющих сигналов</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Вызов </span><span style=" font-family:'monospace';">TIOCMGET</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'Sans'; font-style:italic;">ioctl</span><span style=" font-family:'Sans';"> получает текущее состояние статусных битов &quot;модема&quot;, которые включают все сигнальные линии RS-232, исключая </span><span style=" font-family:'Sans'; font-weight:600;">RXD</span><span style=" font-family:'Sans';"> и </span><span style=" font-family:'Sans'; font-weight:600;">TXD</span><span style=" font-family:'Sans';">: </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 11 - Константы контрольных сигналов </span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Константа</span></p></td>
@@ -1313,6 +1339,7 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">TIOCM_DSR</span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">DSR (data set ready)</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Для получения статусных битов, необходимо вызвать </span><span style=" font-family:'Sans'; font-style:italic;">ioctl</span><span style=" font-family:'Sans';"> с указателем на integer переменную для сохранения битов: </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'Sans';">Листинг 5 - Получение статусных битов модема.</span></p>
 <p style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'monospace';">#include &lt;unistd.h&gt;</span></p>
@@ -1424,7 +1451,9 @@ p, li { white-space: pre-wrap; }
 <p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 2 - Разъем RS-232 <br /></span><img src="image286430226.png" /><span style=" font-family:'Sans';"> </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 12 - RS-232 Signals</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Вывод</span></p></td>
@@ -1551,12 +1580,15 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="6_2"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">Ц</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">околевка RS-422</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">RS-422 также использует 25-контактный разъем (розетка), но с различающимися сигналами: </span></p>
 <p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 3 - Разъем RS-422 <br /></span><img src="image286430226.png" /><span style=" font-family:'Sans';"> </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 13 - Сигналы RS-422</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Вывод</span></p></td>
@@ -1683,12 +1715,15 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="6_3"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">Ц</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">околевка RS-574 (IBM PC/AT)</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Интерфейс RS-574 используется исключительно производителями PC и использует 9-штырьковый разъем (вилка): </span></p>
 <p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 4 - Разъем RS-574 <br /></span><img src="image722094090.png" /><span style=" font-family:'Sans';"> </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 14 - Сигналы RS-574 (IBM PC/AT)</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Вывод</span></p></td>
@@ -1743,12 +1778,15 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="6_4"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">Ц</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">околевки SGI</span><span style=" font-family:'Sans';"> </span></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Старое оборудование SGI использует 9-штырьковый разъем (розетка). В отличие от RS-574, цоколевка SGI больше соответствует RS-232: </span></p>
 <p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 5 - 9-штырьковый разъем SGI <br /></span><img src="image722094090.png" /><span style=" font-family:'Sans';"> </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 15 - Сигналы 9-штырькового разъема SGI</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Вывод</span></p></td>
@@ -1803,11 +1841,16 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td>
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"> </span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
 <p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рабочие станции SGI Indigo, Indigo2, и Indy используют 8-контактный MiniDIN разъем Apple для своих последовательных портов: </span></p>
-<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 6 - 8-контактный разъем SGI <br /></span><img src="image1361391439.png" /><span style=" font-family:'Sans';"> </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Рисунок 6 - 8-контактный разъем SGI </span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';"><br /></span><img src="image1361391439.png" /><span style=" font-family:'Sans';"> </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 16 - Сигналы 8-контактного разъема SGI</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Вывод</span></p></td>
@@ -1861,7 +1904,9 @@ p, li { white-space: pre-wrap; }
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Следующие символы ASCII используются в целях управления: </span></p>
 <p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Таблица 17 - Управляющие коды ASCII</span></p>
-<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="50%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
 <tr>
 <td>
 <p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-weight:600;">Name</span></p></td>
@@ -2224,4 +2269,5 @@ p, li { white-space: pre-wrap; }
 <td>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">31</span></p></td>
 <td>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">1F</span></p></td></tr></table></body></html>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">1F</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
