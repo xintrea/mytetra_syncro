@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large; font-weight:600;">Тестирование с помощью Robotium</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />Robotium не входит в состав Android SDK, но распространяется под Open Source лицензией.<br /><br />Домашняя страница Robotium: <a href="http://code.google.com/p/robotium/"><span style=" text-decoration: underline; color:#0000ff;">code.google.com/p/robotium</span></a><br /><br />Главное отличие Robotium в том, что тестовые действия описываются на уровне интерфейса приложения. В рассмотренных ранее способах тестовые действия явно или неявно описывались на уровне устройств ввода.<br /><br />Например, в приложении нужно нажать кнопку «OK». С помощью скрипта MonkeyRunner нажатие на кнопку реализуется как: «Коснуться точки экрана с координатами (x0, y0)». С помощью Robotium это реализуется как: «Нажать кнопку с текстом «OK»».<br /><br />Когда действия описываются на уровне интерфейса приложения их можно сделать независимыми от расположения элементов интерфейса, разрешения экрана и положения устройства.<br /><br />Кроме того, Robotium позволяет проверять реакцию приложения на действие.<br /><br />Например, после нажатия на кнопку «OK» в приложении должен появиться список с элементом «Item 1». С помощью Robotium можно проверить, появился ли список с таким элементом.<br /><br />Если выполнять проверки после каждого действия, то легко обнаружить, на каком шаге произошла ошибка.<br /><br /><span style=" font-weight:600;">Недостатки:</span><br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для каждого приложения необходимо разработать сценарий тестирования на языке Java. Это требует навыков программирования и временных затрат.</li>
+<li style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При изменении интерфейса приложения сценарий тестирования придется модифицировать.</li>
+<li style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Написать сценарий Robotium сложнее, чем записать действия с помощью getevent/sendevent.</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br />В целом, Robotium позволяет разрабатывать наиболее качественные сценарии тестирования при адекватных затратах.<br /><br /></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:large; font-weight:600;">Сравнение способов тестирования</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Ниже приведена таблица для различных фреймверков тестирования (Monkey, MonkeyRunner, getevent/sendevent, Robotium):<br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="90%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Способ тестирования</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Достоинства</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">Недостатки</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Monkey – поток случайных действий пользователя.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Отсутствуют затраты на сопровождение.<br />Не зависит от устройства.<br />Стресс-тестирование позволяет обнаружить нетривиальные ошибки.<br /></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Качество тестирования варьируется от приложения к приложению.<br />Найденные ошибки сложно воспроизвести.<br />Нет проверки состояния приложения.<br /></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">MonkeyRunner – скрипт управления устройством.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Гибкость.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сложность написания и поддержки скриптов даже для простых приложений.</p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">getevent/sendevent – запись/воспроизведение действий пользователя.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для записи последовательности действий не требуются навыки программирования.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Записанная последовательность действий подходит только к одному устройству при фиксированной ориентации.<br />При изменении интерфейса приложения необходимо заново записать последовательность действий.<br />Нет проверки состояния приложения.<br /></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Robotium – сценарий тестирования интерфейса приложения с проверкой состояния.</p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Действия описываются на уровне интерфейса приложения.<br />Сценарий может быть независимым от разрешения экрана и ориентации устройства.<br />После совершения действия можно проверять состояние приложения.<br /></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Сложность написания сценариев на языке Java. При изменении интерфейса приложения сценарий придется модифицировать.</p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
