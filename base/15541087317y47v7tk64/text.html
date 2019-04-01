@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Когда я фрилансил по этой теме делал так (дистрибутив Убунту).</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Определяем среднее потребление памяти одним процессом:</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">ps -ylC php-fpm7.0 --sort:rss | awk '{sum+=$8; ++n} END {print &quot;Tot=&quot;sum&quot;(&quot;n&quot;)&quot;;print &quot;Avg=&quot;sum&quot;/&quot;n&quot;=&quot;sum/n/1024&quot;MB&quot;}'</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'monospace';"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Далее делал такую инструкцию заказчику:</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">1) Исходим из того, что размер процесса php-fpm в среднем равен 40 Мб (для ваших сайтов). Делим количество оперативной памяти на сервере на это значение получаем максимальное количество процессов, которое может запуститься на данной конфигурации при полной загрузке;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">2) Записываем 75-80% от значения максимального количества процессов в параметр pm.max_children в файле /etc/php/7.0/fpm/pool.d/www.conf ;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">3) В этом же файле меняем значение по-умолчанию pm = dynamic на ondemand . Таким образом мы указали, что воркеры php-fpm будут создаваться только тогда, когда это необходимо. Т.е. они не будут попусту отъедать ОЗУ, ожидая подключения пользователя;</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">4) Значение pm.max_children в конфигурационных файлах остальных хостов (сайтов) устанавливаем как pm.max_children из </p>
+<p style=" margin-top:12px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">www.conf</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px; font-family:'monospace';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">поделить на количество ядер процессора.</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;">5) Перезапускаем наш веб-сервер командами systemctl restart nginx, systemctl restart php-fpm . </p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Может фигню написал, т.к. все это сильно зависит от характера трафика на сервер, см. ссылку выше. Но работало это дело долго и счастливо.</p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
