@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="chto-takoe-swap"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">Ч</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">то такое SWAP</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">SWAP (своп) — это механизм виртуальной памяти, при котором часть данных из оперативной памяти (ОЗУ) перемещается на хранение на HDD (жёсткий диск), SSD (твёрдотельный накопитель), флеш-накопитель или иное вторичное хранилище. Как правило, swapping (свопинг) происходит, когда оперативная память переполнена, и ей для работы требуется дополнительное пространство.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kogda-mozhet-ponadobitsya-svop"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">К</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">огда может понадобиться своп</span><a name="aswift_1_expand"></a><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">У сайта sheensay.ru есть свой </span><a href="https://tlg.name/sheensayru"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">канал в Telegram</span></a><span style=" font-family:'Sans';"> - </span><span style=" font-family:'Sans'; font-weight:600;">@sheensayru</span><span style=" font-family:'Sans';">.<br />В нём публикуются ссылки на новые материалы сайта и интересные, по моему мнению, публикации. </span><a href="https://tlg.name/sheensayru"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">Подписывайтесь</span></a><span style=" font-family:'Sans';"> и будьте в курсе последних событий.<br /></span><a name="close_sh_marafon"></a><a href="https://sheensay.ru/swap#"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">С</span></a><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">пасибо, уже подписался</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Зачастую, от недостатка свободной памяти первой страдает база данных. Вы можете сталкиваться с проблемами типа:</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans';" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Постоянное падение сайта: <span style=" font-family:'monospace';">Ошибка соединения с базой данных</span> — означает, например, что MySQL упал;</li>
+<li style=" font-family:'Sans';" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При внимательном изучении логов <span style=" font-family:'monospace';">/var/log/mysql.log</span> обнаруживается ошибка <span style=" font-family:'monospace';">InnoDB: Fatal error: cannot allocate memory for the buffer pool</span>. Она свидетельствует о том, что базе данных не хватает выделенной ей оперативной памяти для создания буфера.</li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">При подобных симптомах и ошибках может помочь своппинг.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="preimuschestva-swap"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">П</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">реимущества SWAP</span></p>
+<p style=" margin-top:8px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Экономия бюджета</span></p>
+<p style=" margin-top:0px; margin-bottom:8px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Допустим, рассчитано, что под работу сайта необходимо 2 гигабайта оперативной памяти. Однако, в зависимости от всплесков трафика, активности пользователей или особенностей работы проекта в моменты пиковой нагрузки оперативной памяти может не хватать, что, в свою очередь, может вызывать сбои в работе. Можно решить проблему, докупив оперативную память на 2-4 гигабайта, но тогда большую часть времени она будет простаивать вхолостую. В таком случае, может помочь простое подключение свопа на 4 гигабайта — вы выделяете место на диске под своп, и он берёт на себя роль помощника оперативной памяти.<br />Теперь сравним:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td colspan="3">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Сравнение стоимости оперативной памяти и SSD </span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">(цены актуальны на 7 июля 2017 года)</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://a.sheensay.ru/ihor"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">IHOR</span></a></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a href="http://a.sheensay.ru/firstvds"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">FirstVDS</span></a></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Оперативная память, в среднем за 1 гигабайт</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">100 рублей в месяц</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">170 рублей в месяц</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">SSD, в среднем за 1 гигабайт</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">10 рублей в месяц</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">13 рублей в месяц</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Как видно из таблицы, экономия выйдет примерно в 10 раз.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="nedostatki-swap"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">Н</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">едостатки SWAP</span><a name="aswift_2_expand"></a><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:8px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Медленная работа</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Если файл или раздел свопа хранится на HDD (жёстком диске), то скорость чтения данных с него намного меньше, чем из оперативной памяти. Получше дела обстоят с SSD (твёрдотельным накопителем), однако, надо понимать, что поиск и чтение данных происходит через оперативную память, что, в свою очередь, всё равно увеличивает время отклика. Поэтому, если Вы решили сэкономить на оперативной памяти, полностью положившись на SWAP, то я категорически не рекомендую так делать. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:70px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">SWAP — это не замена оперативной памяти, а всего лишь его поддержка.</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Необходимо наличие свободного места на диске</span></p>
+<p style=" margin-top:0px; margin-bottom:8px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Вам необходимо зарезервировать свободное место на диске под своп, иначе стабильность работы не гарантируется. Это не то, чтобы недостаток свопа, просто его надо учитывать и помнить о нём.</span></p>
+<p style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kak-sozdat-i-podklyuchit-fayl-podkachki-swap"></a><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">К</span><span style=" font-family:'Sans'; font-size:x-large; font-weight:600;">ак создать и подключить файл подкачки SWAP</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Далее, в работе используется </span><a href="https://sheensay.ru/ssh"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">командная строка SSH</span></a><span style=" font-family:'Sans';">.<br />Инструментарий: </span><a href="https://sheensay.ru/far"><span style=" font-family:'Sans'; text-decoration: underline; color:#0000ff;">Far Manager</span></a><span style=" font-family:'Sans';"> или Putty.<br />Для примера приводятся команды из под </span><span style=" font-family:'monospace';">root</span><span style=" font-family:'Sans';">. Если Вы работаете не под </span><span style=" font-family:'monospace';">root</span><span style=" font-family:'Sans';">, перед командами задавайте префикс </span><span style=" font-family:'monospace';">sudo</span><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="proverka-nalichiya-svopa-v-sisteme"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">П</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">роверка наличия свопа в системе</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Для начала, нужно убедиться, что своп ещё не подключен:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_964489"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">swapon -s</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Если команда выдала пустой результат или что-то навроде:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Результат:</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">Filename                Type        Size    Used    Priority</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">— значит, своп, скорее всего отсутствует.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Дополнительно проверим командой:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_812816"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">free</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">-m</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image1556397154inf3eecwy8.png" /><span style=" font-family:'Sans';"><br />Если в таблице в строке swap стоит 0, значит своп отсутствует.</span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="proverka-nalichiya-svobodnogo-mesta-na-diske"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">П</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">роверка наличия свободного места на диске</span><a name="aswift_4_expand"></a><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Теперь, надо проверить, сколько свободного места есть на диске:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_858916"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">df</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">-h</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">В результате, мы увидим что-то подобное:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_31364"></a><span style=" font-family:'Sans';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">4</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">5</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">6</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">7</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">8</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">9</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">root@server:~# df -h</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">Файловая система Размер Использовано  Дост Использовано% Cмонтировано в</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">/dev/vda1</span><span style=" font-family:'Sans';">           </span><span style=" font-family:'monospace';">30G          20G  9,0G           66% /</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">udev                10M            0   10M            0% /dev</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">tmpfs              403M          41M  362M           11% /run</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">tmpfs             1006M         336K 1005M            1% /dev/shm</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">tmpfs              5,0M            0  5,0M            0% /run/lock</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">tmpfs             1006M            0 1006M            0% /sys/fs/cgroup</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">tmpfs             1006M         492K 1005M            1% /tmp</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Как мы видим, доступно 9 гигабайт дискового пространства — вполне достаточно, чтобы создать своп-файл.</span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kakogo-razmera-sozdat-swap"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">К</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">акого размера создать swap</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Исходите из принципа — сколько может понадобиться, столько и выделяйте. Как правило, можно начинать с размера объёма оперативной памяти, либо его удвоенного количества. Например, если у вас в системе 2 гигабайта оперативки, своп можно сделать размером 2-4 гигабайта, как правило, этого должно хватать. Но, Вы можете скорректировать его размер под себя.</span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="sozdanie-fayla-swap"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">С</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">оздание файла SWAP</span><a name="aswift_5_expand"></a><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Допустим, мы хотим создать swap-файл размером 4 гигабайта.<br />Далее, здесь существует 2 подхода, традиционный медленный и новый быстрый:</span></p>
+<p style=" margin-top:8px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Быстрый способ</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Используем </span><span style=" font-family:'monospace';">fallocate</span><span style=" font-family:'Sans';">:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_554363"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">fallocate -l 4G /swapfile</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Результатом будет пустая строка, это нормально.<br />В отличие от </span><span style=" font-family:'monospace';">dd</span><span style=" font-family:'Sans';">, результат будет получен почти сразу, и я рекомендую именно его. </span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Традиционный, медленный способ</span></p>
+<p style=" margin-top:0px; margin-bottom:8px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Или используем команду:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_1102"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">dd</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">if=/dev/zero</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">of=/swapfile</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">bs=1G count=4</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Синтаксис команды простой:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans';" style=" margin-top:12px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">dd</span> — команда предназначена для того, чтобы что-то куда-то копировать побайтово;</li>
+<li style=" font-family:'Sans';" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">if=/dev/zero</span> — указывает на источник, т.е. на то, откуда копируем, в данном случае из /dev/zero — это специальный файл в UNIX-подобных системах, представляющий собой источник нулевых байтов;</li>
+<li style=" font-family:'Sans';" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">of=/swapfile</span> — указывает путь назначения, куда копируем данные;</li>
+<li style=" font-family:'Sans';" style=" margin-top:0px; margin-bottom:0px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">bs=1G</span> — количество байт, которые будут записаны за раз. В нашем случае, 1 гигабайт. Обозначения: <span style=" font-family:'monospace';">G</span> — гигабайт, <span style=" font-family:'monospace';">M</span> — мегабайт, <span style=" font-family:'monospace';">K</span> — килобайт, и так далее;</li>
+<li style=" font-family:'Sans';" style=" margin-top:0px; margin-bottom:12px; margin-left:30px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-weight:600;">count=4</span> — сколько блоков размером с <span style=" font-family:'monospace';">bs</span> будет создано, в нашем случае 4.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:70px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Будьте очень внимательны с синтаксисом команды, потому что если, например, ошибиться с определением пути для </span><span style=" font-family:'monospace';">of=</span><span style=" font-family:'Sans';"> (куда сохранять файл), можно повредить данные на диске.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Теперь, когда файл создан, проверим результат:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_695644"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">ls</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">-lh /swapfile</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">В результате увидим:<br /></span><span style=" font-family:'monospace';">-rw-r--r-- 1 root root 4.0G Jul 07 16:16 /swapfile</span><span style=" font-family:'Sans';"><br />Как видим, файл создался верно и с нужным объёмом.</span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="kak-podklyuchit-swap-fayl"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">К</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">ак подключить SWAP файл</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Для начала, ограничим права доступа к вновь созданному файлу. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Предоставление другим пользователям возможности читать или писать в этот файл будет представлять собой огромный риск для безопасности, поэтому ограничение командой ниже строго обязательно:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_722235"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">chmod</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">600 /swapfile</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Проверим результат:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_514082"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">ls</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">-lh /swapfile</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">В результате, мы должны увидеть подобное:<br /></span><span style=" font-family:'monospace';">-rw------- 1 root root 4.0G Jul 07 16:16 /swapfile</span><span style=" font-family:'Sans';"><br />Права прописаны верно. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Теперь нужно сделать из </span><span style=" font-family:'monospace';">swapfile</span><span style=" font-family:'Sans';"> файл подкачки:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_769488"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">mkswap /swapfile</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">В результате, увидим примерно следующее:<br /></span><span style=" font-family:'monospace';">Setting up swapspace version 1, size = 4193300 KiB<br />no label, UUID=e5f3e9cf-c1a9-4ed4-b8ab-711b6a7d6544</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Теперь, файл готов в роли свопа. Подключим его к системе:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_582105"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">swapon /swapfile</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:0px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:40px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_247771"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">swapon: /swapfile: swapon failed: Operation not permitted</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Если на данном этапе выходит похожая ошибка, значит, скорее всего, своп запрещено подключать в систему. Такое ограничение часто ставят на VDS с виртуализацией OpenVZ. Рекомендую использоватьсервера с виртуализацией на </span><span style=" font-family:'monospace';">KVM, которые</span><span style=" font-family:'Sans';"> позволяют включать </span><span style=" font-family:'Sans'; font-weight:600;">SWAP</span><span style=" font-family:'Sans';">.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Всё, теперь своп подключен и работает. Осталось проверить правильность работы самой первой командой:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_159164"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">swapon -s</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Результат:</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">Filename                Type        Size    Used    Priority</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">/swapfile</span><span style=" font-family:'Sans';">               </span><span style=" font-family:'monospace';">file</span><span style=" font-family:'Sans';">        </span><span style=" font-family:'monospace';">4193300  0       -1</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Своп также будет виден в стандартных командах:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_818228"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">free</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">-m</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Результат:</span></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">1</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">2</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">3</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">4</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">             total       used       free</span><span style=" font-family:'Sans';">     </span><span style=" font-family:'monospace';">shared    buffers     cached</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">Mem:          2010        1887       122          0          5         30</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">-/+ buffers/cache:         827       1183</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">Swap:         4095          0       4095</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Всё, теперь точно, своп в системе готов и будет использоваться при необходимости.</span></p>
+<p style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="dobavlenie-svopa-v-avtozagruzku"></a><span style=" font-family:'Sans'; font-size:large; font-weight:600;">Д</span><span style=" font-family:'Sans'; font-size:large; font-weight:600;">обавление свопа в автозагрузку</span><a name="aswift_6_expand"></a><span style=" font-family:'Sans';"> </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Чтобы при перезагрузке сервера своп автоматически подтягивался в систему, нужно прописать его в </span><span style=" font-family:'monospace';">/etc/fstab</span><span style=" font-family:'Sans';">:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_976544"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">echo</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">&quot;/swapfile    none    swap    sw    0    0&quot;</span><span style=" font-family:'Sans';"> </span><span style=" font-family:'monospace';">&gt;&gt; /etc/fstab</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans';">Теперь система знает, где и как при перезагрузке искать и подключать своп.<br />Проверить, подключен ли своп в автозагрузке, можно с помощью редактора:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans';"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_510586"></a><span style=" font-family:'Sans';">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace';">nano /etc/fstab</span></p></td></tr></table></body></html>
