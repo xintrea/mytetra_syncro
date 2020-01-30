@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<h1 style=" margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Версионирование программного обеспечения в Qt проекте с помощью тегов Git </span></h1>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Опубликовано </span><a href="http://blog.alexei-developer.ru/?p=768"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;">31.05.2015</span></a></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Заготовка для этой статьи пролежала в черновиках два года. Думаю пора ей увидеть свет. При разработке ПО не требуется серьёзно относиться к версионированию пока пишешь его для себя. Как только софт выходит в мир тут начинают вылазить баги, исправляешь один-второй-третий, а пользователи всё пишут и пишут о новых. Итог один, всегда наступает тот момент когда спрашиваешь пользователя «У вас установлена последняя версия?», на что он обычно отвечает «А как мне посмотреть какая у меня установлена?». И тут вспоминаешь о самом главном, что во время разработки обычно не является частью разработки и о ней мало кто задумывается всерьёз при создании кода — номер версии. Сейчас я использую немного другой подход, не зависящий от тегов git, но когда то он был именно такой как описан в этой статье.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Когда возникла острая проблема чётко понимать какой последний коммит использовался при сборке софта, было решено создать дефайны, которые должны сами обновляться и содержать актуальную информацию о коде из системы версионирования: тег, хеш, дата и время. Этот софт у меня успользовался в устройстве… А устройство иногда могло уехать, соответственно обновлять его иногда  приходилось пользователю — а это проблема для пользователя! Поэтому при возникновении проблем надо было знать, есть ли критические исправления в софте, чтобы заставить его обновить прошивку или попросить его передать устройство нам для обновления.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Придумано следующее решение: в системе контроля версий создавался тег с текущей версией ПО. А дальше всё «плясало» от этого тега, в котором не было номера сборки (так как запуск сборки не означает изменения в коде). К тегу прилеплялось: хеш и дата-время коммита при котором собиралось ПО. Такой вид легко читается даже пользователями и его можно вывести на маленький экранчик при нажатии какой-нибудь незаметной кнопки на устройстве. Решили что это будет выглядеть примерно так:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_21028"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">Software version: TAG COMMIT_HASH COMMIT_TIMESTAMP</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">(Пример: Software version: v1.0 hAsh1234 2015-04-21)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Только потому что стенд с оборудованием часто находился не рядом с рабочим местом, для упрощения «вспоминания» что же за версия установлена и какой функционал она поддерживает добавили дату и время последнего коммита. Я к тому, что эти значения не обязательны и их можно не брать в отличие от тега и хеша, потому что тег может быть не в текущем коммите, а например, двумя коммитами ранее. Таким образом поиск нужного коммита будет следующий: находим тег, от него начинаем ползти вперёд по ветке и искать нужный хеш. Это конечно в том случае, если находишься не на рабочем месте и искать приходиться через веб, просматривая историю коммитов (например с телефона или планшета). Это не все неудобства. В той организации, где я тогда трудился, и куда вкладывал свою душу и время =) были ещё и следующие неприятные моменты:</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">сервер с контролем версии был очень часто выключен, а коммит очень хотелось сделать, а не скидывать все изменения по разным задачам в один (см. пункт 2);</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">использовался svn</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">все использовали систему контроля версий так как представляли с ней работу они, но опыта работы с ней ни у кого не было…</li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Прим.: Данный подход использовался два года назад, сейчас версия ПО создаётся с помощью хуков git, в котором номер билда увеличивается только в определённой ветке, что заставляет использовать отдельные ветки для создания новых фич и исправления багов. А мерджит их тимлид в ветку develop после чего тестит. Тут есть одно но — коммит в ветку develop должен быть разрешен только одному человеку в команде. Что собственно ещё сильнее заставляет использовать правильную методологию при разработке с использованием контроля версий. Собственно обо всём этом будет отдельная статья.</span></p>
+<h2 style="-qt-paragraph-type:empty; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:x-large; font-weight:600;"><br /></h2>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Получение информации о коде: тег, хеш, дата и время</span></h2>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Теперь собственно про сам workflow. Решение всех трёх проблем для меня выглядело так:</span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">перейти на git</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">руководство не хотело гит, поэтому доустановил git-svn</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">использовать версионирование с помощью git, при это главное было не помешать всем остальным продолжать работу с контролем версий так, как они это уже делали. Грубо говоря надо было сделать так, чтобы остальным даже не пришло в голову что я работаю «как-то по-другому» (прим.: иногда приходилось работать и в выходные, поэтому грузить своих боевых товарищей =) лишними рассказами и предлагать что-то изменять в своей работе мне очень не хотелось)</li></ol>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Итак, теперь мне ничего не мешало делать коммиты когда я хочу и это было поистине очень радостное событие для меня — люблю когда всё разложено по полочкам. В свете этого, когда я понимал, что был исправлен серьёзный баг или текущий софт не совместим с предыдущим я мог сразу сделать коммит и поставить на него тег с новой версией:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_162319"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">git tag v1.0</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Все приготовления закончены: коммит сделан, тег поставлен, пора получать информацию о коде. Так как я только начинал использовать git, получение последнего тега ветки меня немного удивило (в хорошем смысле):</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_844417"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">git describe --tags</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">v1.0-f574bf1b</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Вот! Не понадобилось искать команду как вытащить хеш. Соответственно вторая приятная новость: если прошло несколько коммитов от тега, то этот вывод немного изменится — в него добавляется количество коммитов от коммита с тегом (чем не замена номера билда!):</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">«v1.0-f574bf1b» — если мы находимся на коммите в котором установлен тег;</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">«v1.0-1-gef20b6b» — если мы находитмся в одном коммите от коммита с тегом.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Соответственно получаем:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">v1.0 — название последнего тега в текущей ветки;</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">1 — количество коммитов после коммита с тегом;</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">gef20b6b — первые 8 символов хеша текущего коммита.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Таким образом, пропустив поиск по интернету с вопросом «как вытащить хеш?», сразу полез искать как получить дату и время последнего коммита. Нашёл:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_419614"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">git log -n 1 --format=format:&quot;%ai&quot;</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2015-04-21 20:30:12 +0300</span></p></td></tr></table>
+<h2 style="-qt-paragraph-type:empty; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu Sans'; font-size:x-large; font-weight:600;"><br /></h2>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Использование данных из git в коде проекта Qt</span></h2>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Собственно исходные данные получены, но как без гемороя и костылей использовать их в коде? Оказалось это не очень сложно. В файле проекта Qt определялись следующие дефайны, которые потом используем в коде:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_152341"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">DEFINES += GIT_VERSION=\\\&quot;$$system($$quote(git describe --tags))\\\&quot;</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">DEFINES += GIT_TIMESTAMP=\\\&quot;$$system($$quote(git log -n 1 --format=format:\\\&quot;%ai\\\&quot;))\\\&quot;</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Всё! Теперь смело можно сначала протестировать как приложение выдает версию ПО, а затем добавить этот вывод куда душе угодно:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_774721"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">qDebug() &lt;&lt; &quot;Software version: &quot;</span><span style=" font-family:'Sans'; font-size:10pt;"> </span><span style=" font-family:'monospace'; font-size:10pt;">&lt;&lt; GIT_VERSION &lt;&lt; &quot; (&quot;</span><span style=" font-family:'Sans'; font-size:10pt;"> </span><span style=" font-family:'monospace'; font-size:10pt;">&lt;&lt; GIT_TIMESTAMP &lt;&lt; &quot;)&quot;;</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">Software version: v1.0-1-gef20b6b (2015-04-21 20:30:12 +0300)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Сравнивая с первоначальной поставленной целью, решили что и этот вариант вполне подойдёт:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><a name="highlighter_491119"></a><span style=" font-family:'monospace'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">Хотели:   Software version: v1.0 gef20b6b 2015-04-21</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:10pt;">Получили: Software version: v1.0-1-gef20b6b (2015-04-21 20:30:12 +0300)</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">ВНИМАНИЕ! У данного подхода есть минусы:</span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">приходиться перед каждой сборкой запускать qmake, чтобы обновить дефайны, потому что qmake запускается только при изменение файла проекта (собственно если ПО собирается на сервере сборки, то данная проблема исчезает);</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">надо следить чтобы файл использующий дефайны версионирования обязательно перекомпилился, иначе в нём будет не актуальная версия софта. На сколько сейчас помню, если дефайны объявленные в файле проекта поменялись, то cpp-файл не пересобирается. Наверно это правильно, так как если бы дефайны были в каком-нибудь h-файле, то make увидел бы, что дата h-файла сменилась и пересобрал все cpp-файлы использующие его. А так как они кладутся в Makefile (если не ошибаюсь, qmake свои дефайны записывает именно в него), то make не может определить изменились дефайны или нет.</li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Этих проблем нет в подходе который я использую сейчас, я упомянул о нём выше. О версионировании на хуках git в следующей статье.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p></body></html>
