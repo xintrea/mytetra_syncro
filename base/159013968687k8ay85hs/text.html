@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Несколько базовых советов</span></h2>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />При создании структур баз данных, важно стремиться </span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">к двум основным вещам</span><span style=" font-family:'Sans'; font-size:10pt;">:<br /></span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При разбиении информации по таблицам сохраняется вся информация.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Избыточность хранения минимальна.</li></ol>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Что касается второго момента: хотим ли мы уменьшить избыточность только из-за проблемы с размером хранилища? Нет, мы делаем это главным образом потому, что наличие избыточных данных приводит к </span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600; font-style:italic;">проблемам несогласованности</span><span style=" font-family:'Sans'; font-size:10pt;">, если во время обновления вы не обновляете все поля, представляющие одну и ту же информацию.<br /><br />Вот некоторые рекомендации, которые </span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">помогут приблизиться к хорошей архитектуре</span><span style=" font-family:'Sans'; font-size:10pt;">:<br /><br /></span></p>
+<ol style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Используйте как минимум третью нормальную форму (в которой каждый неключевой атрибут «должен предоставлять информацию о ключе, полном ключе и ни о чем, кроме ключа», согласно<a href="http://www.bkent.net/Doc/simple5.htm"><span style=" text-decoration: underline; color:#0000ff;"> формулировке</span></a> Билла Кента).</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Создайте последнюю линию обороны в виде ограничений.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Никогда не храните в одном поле целые адреса.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Никогда не храните в одном поле имя и фамилию.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Установите соглашения для имен таблиц и полей и придерживайтесь их.</li></ol>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Рассмотрим эти рекомендации подробнее. <br /><br /></span></p>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">1. Используйте как минимум третью нормальную форму</span></h2>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Архитектуру баз данных можно разделить на следующие категории:<br /><br /></span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Первая нормальная форма.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Вторая нормальная форма.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Третья нормальная форма.</li>
+<li style=" font-family:'Sans'; font-size:10pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Нормальная форма Бойса-Кодда.</li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Эти категории представляют классификацию по качеству. Вкратце рассмотрим все категории и разберем, почему нужна хотя бы третья нормальная форма.<br /><br /></span></p>
+<h3 style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Первая нормальная форма</span></h3>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Для первой нормальной формы каждое значение каждого столбца каждой таблицы в БД должно быть атомарным. Что значит атомарным? Если вкратце, атомарное значение представляет собой «единичную вещь».<br /><br />Например, у нас есть такая таблица:<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">first_name</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">last_name</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">age</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">areas</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Jhon</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Doe</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">27</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">{“Дизайн веб-сайтов”, “Исследование клиентуры”}</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Mary</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Jane</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">33</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">{“Долговременное стратегическое планирование”, “Найм персонала”}</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Tom</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Smith</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">35</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">{“Маркетинг”}</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Здесь столбец </span><span style=" font-family:'Sans'; font-size:10pt; font-style:italic;">areas</span><span style=" font-family:'Sans'; font-size:10pt;"> («Области») содержит значения, которые не являются атомарными. Например, в строке Джона Доу поле хранит две сущности: «Дизайн веб-сайтов» и «Исследование клиентуры».<br /><br />Таким образом, эта таблица не находится в первой нормальной форме.<br /><br />Чтобы привести ее к такой форме, </span><span style=" font-family:'Sans'; font-size:10pt; font-style:italic;">в каждом поле должно храниться только одно значение</span><span style=" font-family:'Sans'; font-size:10pt;">.<br /><br /></span></p>
+<h3 style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Вторая нормальная форма</span></h3>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Во второй нормальной форме ни один столбец, который не является частью первичного ключа (или который может действовать как часть другого первичного ключа), не может быть выведен из </span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">меньшей части первичного ключа</span><span style=" font-family:'Sans'; font-size:10pt;">.<br /><br />Что это значит?<br /><br />Допустим, у вас такая архитектура базы (я подчеркнул поля, соответствующие первичному ключу в этой таблице):<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline;">employee_id</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline;">project_id</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Hours</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">employee_name</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">project_name</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">10</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Джон</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">“дизайн веб-сайта”</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">20</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Мэри</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">“дизайн веб-сайта”</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />В этом проекте имя сотрудника может быть непосредственно выведено из employeee_id, поскольку идея заключается в том, что имя сотрудника однозначно определяется его идентификатором.<br /><br />Аналогично, имя проекта однозначно определяется идентификатором project_id.<br /><br />Таким образом, у нас два столбца можно вывести из части первичного ключа.<br /><br />Каждого из этих примеров было бы достаточно, чтобы выбросить эту таблицу из второй нормальной формы.<br /><br />Еще один вывод заключается в том, что если таблица была в первой нормальной форме и все первичные ключи являются одиночными столбцами, то таблица уже находится во второй нормальной форме.<br /><br /></span></p>
+<h3 style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Третья нормальная форма</span></h3>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Чтобы таблица соответствовала третьей нормальной форме, она должна быть во второй нормальной форме, при этом в ней не должно быть атрибутов (столбцов), кроме первичного, которые транзитивно зависят от первичного ключа.<br /><br />Что это значит?<br /><br />Допустим, у вас следующая архитектура (которая далека от идеала):<br /></span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">employee_name</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline;">employee_id</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">age</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">department_number</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">department_name</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Джон</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">1</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">27</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">123</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">“Маркетинг”</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Мэри</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">2</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">33</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">456</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">“Оперативный”</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">Том</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">3</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">35</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">123</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;">“Маркетинг”</span></p></td></tr></table>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />В этой таблице department_number можно вывести из employee_id, а department_name можно вывести из department_number. Таким образом, department_name транзитивно зависит от employee_id!<br /><br />Если существует такая транзитивная зависимость: employee_id → department_number → department_name, то данная таблица не находится в третьей нормальной форме.<br /><br /></span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Какие проблемы возникают из-за этого</span><span style=" font-family:'Sans'; font-size:10pt;">?<br /><br />Если название отдела можно вывести из его номера, то хранение этого поля для каждого сотрудника вводит лишнюю избыточность.<br /><br />Представьте, что отдел маркетинга меняет название на «Маркетинг и продажи». Чтобы сохранить согласованность, придется обновить ячейку в каждой строке таблицы для каждого сотрудника этого отдела! В третьей нормальной форме такого бы не произошло.<br /><br />Кроме того, вот, что произойдет, если Мэри решит покинуть компанию: мы должны удалить ее строку из таблицы, но если она была единственным сотрудником оперативного отдела, то отдел тоже придется удалить.<br /><br />Всех этих проблем можно полностью избежать в третьей нормальной форме.<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br /></span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">2. Создайте последнюю линию обороны в виде ограничений</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />База данных, с которой вы работаете, — это больше, чем просто группа таблиц. В нее встроена определенная функциональность. Многие из этих функций помогают обеспечить качество и корректность данных.<br /><br />Ограничения устанавливают правила, какие значения можно вносить в поля БД.<br /><br />Когда определяете отношения в базе данных, обязательно установите ограничения внешних ключей.<br /><br />Обязательно укажите, что должно произойти при удалении и обновлении строки, связанной с другими строками в других таблицах (правила ON DELETE и ON UPDATE).<br /><br />Обязательно используйте NOT NULL для всех полей, которые никогда не должны обнуляться. Возможно, есть смысл установить проверку на бэкенде, но помните, что сбои случаются всегда, поэтому не помешает добавить и такое ограничение.<br /><br />Установите проверочные ограничения CHECK, чтобы убедиться — значения таблицы находятся в допустимом диапазоне, например, цена на товар всегда имеет положительное значение.<br /><br /></span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Интересный факт</span><span style=" font-family:'Sans'; font-size:10pt;">: в апреле 2020 года именно такое ограничение в программном обеспечении</span><a href="https://vc.ru/finance/122803-investory-postradavshie-ot-otricatelnyh-cen-na-neft-podadut-kollektivnyy-isk-k-moskovskoy-birzhe"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;"> помешало торгам на московской бирже ММВБ</span></a><span style=" font-family:'Sans'; font-size:10pt;">, потому что цена на нефтяные фьючерсы WTI опустилась ниже нуля. В отличие от московской биржи, Нью-Йоркская товарная биржа NYMEX</span><a href="https://futures.io/commodities/54087-oil-price-negative.html"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;"> обновила софт за неделю до инцидента</span></a><span style=" font-family:'Sans'; font-size:10pt;">, поэтому сумела успешно провести сделки по отрицательной цене, то есть с доплатой покупателю от продавца — прим. пер.<br /><br />Обо всех ограничениях PostgreSQL можно почитать</span><a href="https://www.postgresql.org/docs/9.4/ddl-constraints.html"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;"> здесь</span></a><span style=" font-family:'Sans'; font-size:10pt;">.<br /><br /></span></p>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">3. Никогда не храните в одном поле целые адреса</span></h2>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Если в вашем приложении или на веб-сайте есть форма с одним полем, где пользователь вводит свой адрес, то это уже плохо пахнет. Очень вероятно, что в этом случае у вас будет также одно поле в базе данных для хранения адреса в виде простой строки.<br /><br />Но что делать, если нужно объединить покупки клиентов по городам, чтобы посмотреть, в каком городе какой продукт более популярен? Вы сможете это сделать?<br /><br />Это будет очень тяжело!<br /><br />Поскольку полный адрес хранится как строка в поле БД, в первую очередь придется разбираться, какая часть этой строки является городом! И это почти невыполнимая задача, учитывая все возможные форматы адресов в этом поле.<br /><br />Поэтому обязательно разбивайте универсальное поле «Адрес» на конкретные поля: улица, номер дома, город, область, почтовый индекс и так далее. <br /><br /></span></p>
+<h4 style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Еще одна проблема адресов — «анонимные» поля</span></h4>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Вот иллюстрация из книги Майклза Блаха «Медная пуля для улучшения качества программного обеспечения»:<br /><br /></span></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image1590139635hcz2e0f33c.png" width="792" height="285" /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Какие тут видны возможные проблемы? Сможете ли вы легко отличить город Чикаго от улицы Чикаго? Наверное, нет.<br /><br />Поэтому не забывайте всегда давать четкие имена столбцов каждой единице информации.<br /></span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br /></span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">4. Никогда не храните в одном поле имя и фамилию</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Аналогично ситуации с адресами: количество вариаций имени и фамилии слишком велико, чтобы их четко различать.<br /><br />Конечно, можно отделить имя от фамилии, если между ними пробел.<br /><br />Например, «Майк Альче» → имя «Майк» и фамилия «Альче».<br /><br />Но что делать, если пользователь ввел второе имя? Или у него двойная фамилия? А что, если есть и второе имя, и двойная фамилия?<br /><br />Как определить, где имя, а где фамилия, чтобы разделить строку? Ошибки неизбежны.<br /><br />Способ избежать многих проблем — создать отдельные поля (в формах) для имен пользователей first_name и last_name. Таким образом, вы позволите пользователям разделить свои собственные имена и сможете хранить данные согласованным образом.<br /><br /></span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">Примечание</span><span style=" font-family:'Sans'; font-size:10pt;">: я не говорю, что в полях БД запрещены пробелы. Например, для таких имен, как «Хуан Мартин Дель Потро», первая часть «Хуан Мартин» входит в поле first_name, а «Дель Потро» — в поле last_name. Конечно, это </span><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">не идеально</span><span style=" font-family:'Sans'; font-size:10pt;">. Можно дополнительно завести столбцы middle_name и second_last_name. Посмотрите подробнее о возможных вариациях имен и фамилий в списке «</span><a href="https://habr.com/ru/post/146901/"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;">Заблуждения программистов об именах</span></a><span style=" font-family:'Sans'; font-size:10pt;">» и статье «</span><a href="https://habr.com/ru/post/431866/"><span style=" font-family:'Sans'; font-size:10pt; text-decoration: underline; color:#0000ff;">Заблуждения программистов об именах — с примерами</span></a><span style=" font-family:'Sans'; font-size:10pt;">». Придется согласиться на какой-то компромисс между точностью и практичностью.<br /><br /></span></p>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt; font-weight:600;">5. Установите соглашения для имен таблиц и полей и придерживайтесь их</span></h2>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Sans'; font-size:10pt;"><br />Довольно неприятно работать с данными, которые выглядят как user.firstName, user.lst_name, user.birthDate и так далее.<br /><br />Я бы посоветовал установить правила именования с подчеркиванием, потому что не все SQL-движки одинаково обрабатывают заглавные буквы, а заключать всё в кавычки весьма утомительно.<br /><br />Выберите так же, как называть таблицы — во множественном или единственном числе (например, users во множественном числе или user в единственном). Мне больше нравится единственное число, но все фреймворки для бэкенда, кажется, по умолчанию настроены на множественное. Приходится следовать шаблону и использовать множественное число.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;"><br /></p></body></html>
