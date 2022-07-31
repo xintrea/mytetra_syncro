@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Исходный текст программы на языке ассемблера может быть создан в любом текстовом редакторе и должен быть размещен в файлах с расширениями .asm, .inc или .txt. Удобнее всего для этих целей использовать встроенный в AVR Studio редактор.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Алфавит ассемблера состоит из набора символов ACSII. Однако в комментариях к программам допускается использовать любой удобный язык, основанный на наборе символов в кодировке UNICODE. Изначально ассемблер не чувствителен к регистру символов. Так, например, между тремя именами переменной TEMP, temp, Temp нет ни какой разницы.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Ассемблер может работать с числами, представленными в одной из четырех системах исчисления:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">десятичной (примеры чисел: 10, 255),</span></li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">шеснадцатиричной (примеры чисел: 0x0A, $FF),</span></li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">двоичной (примеры чисел: 0b00001010, 0b11111111),</span></li>
+<li style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">восмиричной (примеры чисел: 012, 0377).</span></li></ul>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">По умолчанию применяется десятичная система, и любое число без префикса будет воспринято именно как десятичное. Необходимо обратить внимание также на то, что ассемблер AVR не поддерживает распространенную форму записи 16-тиричных чисел c постфиксом “H” (1AH, 0FFH).</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">В табл.1 приведен список операторов</span><span style=" font-family:'Arial,Helvetica,sans-serif'; font-style:italic; color:#494949; background-color:transparent;">,</span><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;"> доступных для использования в числовых выражениях. Операторы расположены в порядке убывания приоритета. Как и всегда, очередность следования арифметических и логических операций можно изменять, применяя круглые скобки.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Табл 1. Арифметические и логические операторы, использующие в числовых выражениях:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="90%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Обозначение оператора</span></p></td>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Описание</span></p></td>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Пример использования</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">-</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Унарный оператор. Изменяет знак числа, используя дополнительный код.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,-3   R16 &lt;- 0xFD</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">*</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит умножение двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 * x2 ;R16 &lt;- x1*x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">/</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит деление двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 / x2 ;R16 &lt;- x1/x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">%</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Возвращает целочисленный остаток от деления двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 % x2 ;R16 &lt;- {x1/x2} </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">!</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Унарный оператор сравнения. Возвращает 1 если число было равно нулю и 0 если число не было равно нулю.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,!x   R16 &lt;- 1 если x = 0</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x ≠ 0 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">~</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Унарный оператор. Производит инвертирование всех битов в числе.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,~0xF0   R16 &lt;- 0x0F</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">+</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит сложение двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 + x2 ;R16 &lt;- x1 + x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">-</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит вычитание двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 - x2 ;R16 &lt;- x1 - x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&lt;&lt; </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит сдвиг выражения стоящего слева от оператора на число разрядов, стоящих справа от оператора. Сдвиг происходит в левую сторону.  </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,1&lt;&lt;5   R16 &lt;- 0b00100000</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&gt;&gt; </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит сдвиг выражения стоящего слева от оператора на число разрядов, стоящих справа от оператора. Сдвиг происходит в правую сторону. </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,0x50&gt;&gt;4 ;R16 &lt;- 0b00000101</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&lt; </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если число, стоящее слева от оператора, меньше числа, стоящего справа. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &lt; x2 ;R16 &lt;- 1 если x1 &lt; x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 &gt;=x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&lt;=</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если число, стоящее слева от оператора, меньше или равно числу, стоящему справа. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &lt;= x2 ;R16 &lt;- 1 если x1 &lt;=x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 &gt; x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&gt; </span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если число, стоящее слева от оператора, больше числа, стоящего справа. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &gt; x2 ;R16 &lt;- 1 если x1 &gt; x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 &lt;=x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&gt;=</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если число, стоящее слева от оператора, больше или равно числу, стоящему справа. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &gt;= x2 ;R16 &lt;- 1 если x1 &gt;=x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 &lt; x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">==</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если числа, стоящие по обе стороны от оператора, равны. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 == x2 ;R16 &lt;- 1 если x1 = x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 ≠ x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">!=</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если числа, стоящие по обе стороны от оператора, не равны. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 != x2 ;R16 &lt;- 1 если x1 ≠ x2 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 = x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&amp;</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит побитовую операцию “Логическое И” между двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 | x2 ;R16 &lt;- x1|x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">^</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит побитовую операцию “Исключающее ИЛИ” между двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 ^ x2 ;R16 &lt;- x1^x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">|</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор. Производит побитовую операцию “Логическое ИЛИ” между двух чисел.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &amp; x2 ;R16 &lt;- x1&amp;x2 </span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">&amp;&amp;</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если числа, стоящие по обе стороны от оператора, не равны нулю. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 &amp;&amp; x2 ;R16 &lt;- 1 если x1 и x2 ≠ 0 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 или x2 = 0</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">||</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Бинарный оператор сравнения. Возвращает 1 если хотя бы одно из чисел, стоящих по обе стороны от оператора, не равно нулю. В противном случае возвращает 0.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">ldi R16,x1 || x2 ;R16 &lt;- 1 если x1 или x2 ≠ 0 </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949;">;R16 &lt;- 0 если x1 и x2 = 0</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Ассемблер содержит также ряд встроенных функций. Некоторые из них, имеющие наибольшее практическое значение, приведены в табл.2.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Табл 2. Некоторые встроенные в ассемблер функции:</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="1" style=" border-style:solid; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" width="90%" cellspacing="-1" cellpadding="0" bgcolor="#ffffff">
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Обозначение функции</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Описание</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; font-weight:600; color:#494949; background-color:transparent;">Пример использования</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">low()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает младший байт выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">low(0x1234)  = 0x34</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">high(), byte2()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает второй байт выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">high(0x1234) = byte2(0x1234) = 0x12</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">byte3()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает третий байт выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">byte3(0xABCD1234) = 0xCD</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">byte4()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает четвертый байт выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">byte4(0xABCD1234) = 0xAB</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">lwrd()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает младшее слово выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">lwrd(0xABCD1234) = 0x1234</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">hwrd()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает второе слово выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">hwrd(0xABCD1234) = 0xABCD</span></p></td></tr>
+<tr>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">abs()</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">Функция возвращает абсолютное значение выражения.</span></p></td>
+<td bgcolor="transparent">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:transparent;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:transparent;">abs(-1000) = 1000</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;"><span style=" font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;">Операторы арифметических и логических операций, а также символы “;”, “.”, “(”, “)”, “[”, “]”, “{”, “}”, “?” - зарезервированы компилятором. Они не должны встречаться в обозначениях констант, инструкций и меток. Кроме этого, пользовательские имена, не могут начинаться с цифр и не должны совпадать с названиями регистров (R0…R31,X,Y,Z) и встроенными в ассемблер функциями.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial,Helvetica,sans-serif'; color:#494949; background-color:#ffffff;"><br /></p></body></html>
