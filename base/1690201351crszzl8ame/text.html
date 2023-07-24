@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Этот процессор стал наряду с 6502 основным процессором первых персональных компьютеров. В истории его появления и использования нет никаких насыщенных драматизмом событий. Есть только некоторая интрига в неуспехе Zilog сделать следующее поколение процессоров. Z80 начали производить в 1976 и его варианты производят до сих пор. Когда-то даже сам Билл Гейтс объявил о поддержке систем на основе z80. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Интересны ряд совпадений. Как и в случае с 6502, главный разработчик Z80, Федерико Фаггин (Federico Faggin), ушёл из крупной компании, из Intel. После работы над z80 Федерико уже почти не работал с процессором следующего поколения Z8000 и в начале 80-х ушёл из основанной им компании, чтобы в дальнейшем уже никогда процессорами не заниматься. Он создал затем несколько относительно успешных стартапов, создавая системы связи, тачпады и цифровые камеры. Можно упомянуть, что, помимо z80, в Zilog им ещё был разработан удачный и производимый до сих пор микроконтроллер Z8. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Z80 – это более удобный для включения в компьютерные системы процессор, чем 8080. Он требует только одного напряжения питания и имеет встроенную поддержку регенерации динамической памяти. Кроме того, он при полной совместимости с 8080 имеет довольно много новых команд, второй набор основных регистров и несколько совершенно новых регистров. Любопытно, что в Zilog отказались от использования мнемоник ассемблера 8080, а стали использовать свои собственные мнемоники, более подходящие для расширенной системы команд z80. Подобная история случилась с ассемблером Intel x86 в мире программного обеспечения GNU, там тоже почему-то используют по умолчанию свои собственные соглашения по записи программ на ассемблере. В Z80 добавили поддержку флага переполнения, Intel официально добавила поддержку такого флага только в 8086. Однако, этот флаг в z80 совместили с флагом чётности, поэтому одновременно, как в 8086, оба флага использовать не получится. В z80, как и в 6502, есть только базовая проверка значения одного флага, т.е. нет проверок сразу двух или трех флагов, что необходимо для беззнаковых сравнений &quot;строго больше&quot;, &quot;меньше или равно&quot;, а также всех знаковых – в таких случаях приходится делать несколько проверок, на 8086, 6800 или PDP-11 достаточно одной. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Среди новых команд z80 особенно впечатляют команды массового копирования памяти за 21 такт на байт, а также интересная команда поиска байта в памяти. Добавили также похожие блочные инструкции для ввода и вывода. Однако наиболее интересна команда EXX, меняющая местами содержимое 48 байт регистровой памяти, регистры BC, DE, HL с их двойниками, которая выполняется всего за 4 такта! Даже 32-битным ARM понадобится на примерно такую же операцию не менее 6 тактов. Остальные добавочные инструкции не так впечатляют, хотя иногда могут быть полезными. Добавлены ещё: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">16-битное вычитание c заемом и 16-битное сложение с переносом за 15 тактов; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">унарный минус для аккумулятора за 8 тактов; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">возможность читать из памяти и писать в неё, используя регистры BC, DE, SP, IX, IY, а не только HL; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">сдвиги, вращения и ввод-вывод для всех 8-битных регистров; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">операции проверки, установки и сброса бита по его номеру; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">перемещаемые переходы по смещению (JR): безусловный и по флагам переноса и равенства; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">команда цикла; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">очень необычные инструкции для десятичных вращений RLD и RRD, похожие на которые были разве что у IBM мейнфреймов; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">инструкции для ввода и вывода, работающие через индексный регистр. </li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Всего к 244 инструкциям 8080 было добавлено 458 новых инструкций, а если считать те, которые впоследствии были признаны как почти официальные, то получится ещё около полусотни новых инструкций. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Большинство новых команд довольно медленные, но их правильное использование может все же сделать код несколько быстрее и существенно компактнее. Это особенно относится к использованию новых 16-разрядных регистров IX и IY, которые можно использовать для новых методов адресации. Интересно, что индексные регистры IX и IY появились в Z80 с целью привлечь пользователей 6800 к переходу на Z80! </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Многие команды 8080 в z80 стали на такт быстрее и это очень заметное ускорение. Но основная для 16-битной арифметики команда ADD стала на такт медленнее. Также стали медленнее команды LD SP,HL, EX (SP),HL, инкремент и декремент с памятью и 16-разрядными регистрами, а также операции ввода и вывода. Поэтому коды 8080 выполняются на z80 если и быстрее, то только чуть-чуть. Однако, если реализовывать одинаковый алгоритм для 8080 и Z80, то Z80 может быть значительно быстрее, например, расчет числа π по алгоритму-затвору для Z80 у меня получился почти на 40 процентов быстрее, чем для 8080. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">В Z80 добавили поддержку уникального флага, который не встречается больше ни в одной системе. Это флаг вычитания. Он используется только командой десятичной коррекции DAA, которую на Z80 можно использовать и после вычитания. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Другая уникальная особенность Z80 – это общедоступный регистр регенерации памяти. Его можно, например, использовать для генерации случайных чисел. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Система работы с прерываниями стала разнообразнее имеющейся у 8080. С z80 можно использовать как немаскируемые прерывания, так и три способа для работы с маскируемыми: </span></p>
+<ul style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">такой же как и у 8080 – требует контроллера прерываний совместимого со стандартом 8080; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">по фиксированному RST – это самый простой, ему не требуется поддержка внешних схем; </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">в режиме 2 процессор задаёт старший байт обработчика прерываний, а контроллер определяет младший байт – этот способ требует аппаратной поддержки дополнительных чипов от Zilog. </li></ul>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Однако, прерывания в режиме 2 можно использовать и без поддержки контроллера, просто резервируя 257 байт в памяти под адрес прерывания. Так делают на компьютерах, где аппаратура не поддерживает режим 2, например, на Amstrad CPC/PCW, MSX, ZX Spectrum, ... Это, конечно, несколько затратно, но необходимость в этом может возникнуть в случаях подобных ZX Spectrum, когда вектор прерывания режима 1 находится в ПЗУ. Любопытно, что в некоторых компьютерах MSX можно использовать и прерывания режима 0 без поддержки контроллера.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Работа с прерываниями у Z80 имеет и другие уникальные особенности. Как известно, Z80 как и 8080 при прерываниях не сохраняет слова состояния процессора, но z80 тем не менее имеет целых две уникальные команды для возврата из прерываний. Инструкция возврата из маскируемого прерывания RETI работает также как и обычный возврат из подпрограммы, но её должны заметить как особенную внешние схемы управления и произвести сброс установки прерывания. В других архитектурах (6502, х86, ...) в коде обработчика прерываний нужно явно прописывать команды сброса контроллера, типа MOV AL,20H и OUT 20H,AL для x86. Однако, работа с командой RETI должна иметь поддержку у внешних чипов Zilog, и на известных компьютерах (в частности, ZX Spectrum, MSX, Amstrad CPC/PCW, Tandy TRS-80 model 1/3/4) такого нет. Другая уникальная инструкция – это RETN для возврата из немаскируемого прерывания. Она также работает как и обычный возврат из подпрограммы, но с небольшим дополнительным эффектом – она восстанавливает сохраненный при старте немаскируемого прерывания флаг разрешения маскируемых прерываний. Это информация из официальной документации, которая не может не вызвать вопросов. Как, например, быть, если случится вложенное немаскированное прерывание? Согласно последним данным z80 работает проще и логичнее, а в официальной документации допущена ошибка. Z80 после выхода из любого прерывания по команде RETN или RETI всегда восстанавливает флаг разрешения маскируемых прерываний, хотя для RETI это и неважно. Однако, процессор не сохраняет этого флага при старте немаскируемого прерывания! </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">По непонятным мне причинам компьютеры на базе Z80 обычно не использовали схемы управления прерываниями с полной поддержкой возможностей этого процессора. Возможно из-за цены. Хотя это получается как-то необычно. Дешевый процессор и дорогие схемы поддержки. Как будто Zilog был нацелен на производство только Z80. Для Z80 производились фирменный таймер, параллельный и последовательный интерфейсы, чип DMA и другие подобные устройства, но их в популярных компьютерах не использовали. Применяли их только в некоторых моделях сравнительно редких и дорогих офисных систем, например, Tandy TRS-80 model 2/12/16, ABC 800, Tatung Einstein или Robotron 1715. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Z80 имеет довольно много недокументированных инструкций, некоторые из этих инструкций пропали при переходе на технологию CMOS, но те которые сохранились стали фактически стандартными и были документированы некоторыми фирмами. Особенно полезны инструкции, позволяющие работать с отдельными байтами неуклюжих 16-битных регистров IХ и IY. Кроме недокументированных инструкций Z80 имеет и другие недокументированные свойства, например, два особых флага в регистре состояний. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Конечно, z80 ещё в большей степени, чем 8080 имеет право называться слегка 16-битным. Гипотетический индекс разрядности у z80 явно чуть-чуть повыше, но при этом парадоксально, что АЛУ у z80 на самом деле 4-битное! На электронном уровне z80 и 8080 – совершенно разные чипы. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">16-ые операции остались у Z80 не вполне реализованными, хотя возможно это случилось из-за необходимости поддержания совместимости с 8080. В частности, очень неудобно, что 16-ые инкремент и декремент вообще не меняют флагов. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Конечно, Z80 может дать немало других оснований для критики. Помимо унаследованных от 8080 пустых инструкций типа LD B,B в Z80 появились ещё более бессмысленные инструкции-двойники, т.е. более большие и медленные клоны имеющихся инструкций, это длинные LD HL,(nn) и LD (nn),HL, а также RLC A, RRC A, RL A, RR A. А если считать полуофициальные инструкции, то таких некрасивых двойников обнаружится ещё больше. В официальной документации есть довольно странная ошибка для команд ввода и вывода: там указано, что используется регистр C в качестве индекса, а фактически используется регистр BC. Возможно эта ошибка была сделана намеренно, так как выполнении блочных инструкций ввода или вывода регистр B используется как счетчик. Конечно, если использовать только 256 байт для портов, то эта ошибка сама собой исчезает, но некоторые системы, например, Amstrad CPC/PCW использует все 64 КБ адресного пространства для доступа к портам ввода и вывода и там такие блочные инструкции использовать не получится. Интересно ещё, что даже при использовании 8-битного адреса в операциях IN и OUT, Z80 всё равно формирует 16-битный адрес, используя аккумулятор для задания старшего байта. Это использовалось, например, в ZX81. По моему мнению инструкций для ввода и вывода добавили слишком много, большинство из них скорее избыточны. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">В официальной документации по Z80, помимо отмеченных, есть и другие неточности. Энтузиасты только недавно узнали особенности исполнения некоторых команд Z80, например, OTIR/OTDR/INIR/INDR. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Много было написано про сравнение быстродействия z80 и 6502, так как эти процессоры очень широко использовались в первых массовых компьютерах. В этой теме есть несколько непростых моментов, без понимания которых очень трудно сохранять объективность. Благодаря наличию довольно большого числа регистров z80 естественно использовать на частоте большей, чем работает память. Поэтому z80 на 4 МГц может использовать ту же память, что и 6502 или 6809 на 1.33 МГц. По мнению многих опытных программистов, писавших коды для обоих процессоров, на одинаковой частоте 6502 в среднем примерно от 2.4 до 2.6 раз быстрее, чем z80. Автор этого материала с этим согласен. Только нужно добавить, что писать хорошие, быстрые коды для z80 – это очень непросто, нужно постоянно оптимизировать использование регистров, а для работы с памятью максимально задействовать стек. Если очень стараться, то по моему мнению можно свести разницу между z80 и 6502 до примерно 2.1 раз. А если не стараться и игнорировать тайминги, то легко можно получить разницу и более 4-х раз. В некоторых отдельных случаях z80 может показывать очень быструю работу. На задаче заполнения памяти z80, используя команду PUSH, может быть даже чуть быстрее 6502, но это ценой запрета прерываний. На копировании блоков памяти z80 только в 1.5 раза медленнее. Особенно впечатляет, что в делении 32-разрядного делимого на 16-делитель z80 медленнее только в 1.7 раз. Кстати, такое суперделение было реализовано российским программистом. Подобные отличные результаты Z80 может показывать и на других интенсивных 16-битных расчетах, когда хватает регистров. Таким образом, получаем, что ZX Spectrum c z80 на 3.5 MHz примерно в полтора раза быстрее С64 с 6502 на 1 МГц. Стоит ещё отметить, что часть тактов в большинстве систем с z80 или 6502 отбирается у процессора схемами поддержки генерации видеосигнала, например, из-за этого у популярных компьютеров Amstrad CPC/PCW реальная частота процессора 3.2 МГц, а не полные 4. В системах на 6502 обычно можно отключать экран для получения максимальной процессорной производительности. Если за основу брать частоту работы памяти, а не процессора, то получится, что z80 на 25-40% быстрее, чем 6502. Последний результат можно проиллюстрировать тем, что с памятью с частотой 2 МГц z80 может работать на частоте до 6 Мгц, а 6502 только до 2 МГц. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Также было бы любопытно сравнить быстродействие Z80 и 8088. Конечно, в целом 8088 — это более мощный процессор, но во многих важных частностях он медленнее, чем Z80. Рассмотрим следующую таблицу, где представлены некоторые типичные случаи, когда Z80 быстрее. Соответствие между регистрами установлено таким же как в стандартной программе, конвертирующей код 8080 в код 8086. </span></p>
+<p align="center" style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" align="center" cellspacing="2" cellpadding="0">
+<tr>
+<td colspan="2">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Z80</span></p></td>
+<td colspan="2">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">8088</span></p></td>
+<td rowspan="2">
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">+ </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">code</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">time</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">code</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">time </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JP word</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JMP word</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">CALL word</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">17</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">CALL word</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">19</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">2 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RET</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RETN</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">20</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RST byte</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">INT byte</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">71</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">60 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JP (HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">4</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JMP BX</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JP (IX)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">8</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">JMP BP</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">3 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD A,(HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV AL,[BX]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">3 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD (HL),A</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV [BX],AL</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">3 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD r,(HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV r,[BX]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">13</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">6 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD (HL),r</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV [BX],r</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">14</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD (HL),byte</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV [BX],byte</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD A,(BC)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV SI,CX<br />MOV AL,[SI]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">12</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD (BC),A</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV SI,CX<br />MOV [SI],AL</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">12</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD HL,(word)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">16</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV BX,[word]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">18</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">2 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">LD (word),HL</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">16</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV [word],BX</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">19</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">3 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">EX (SP),HL</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">19</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV SI,SP<br />XCHG [SI],BX</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">24</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">EX (SP),IY</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">23</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">MOV SI,SP<br />XCHG [SI],DI</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">24</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">1 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">PUSH BC</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">PUSH CX</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">4 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">POP DE</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">10</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">POP DX</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">12</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">2 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">INC (HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">INC [BX]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">20</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">9 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">DEC (HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">11</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">DEC [BX]</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">20</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">9 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">SET 0,(HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">OR [BX],1</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">22</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RES 1,(HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">AND [BX],0xFD</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">22</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">7 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RLC (HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">ROL [BX],1</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">20</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr>
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RR (HL)</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">15</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">RCR [BX],1</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">20</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">5 </span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Легко можно заметить, что Z80 быстрее на инструкциях для счетчика команд и операциях с памятью, унаследованных от 8080. Особенно заметно преимущество Z80 на дальних условных переходах. У 8088 смещение у условных переходов только один байт, поэтому когда нужен более дальний переход, то приходится писать две команды. У Z80 такой проблемы нет, там для перехода выделяется два байта и поэтому в таких случаях условный переход на Z80 существенно быстрее, на 6 или 9 тактов. Практически все операции через регистр HL выполняются на Z80 чуть быстрее, а это и сложение, и вычитание, сравнение, BIT и другие логические операции. Хотя возврат из прерывания у Z80 и 8088 архитектурно сильно различаются, они несут идентичные функции. RETI у Z80 на 30 тактов быстрее IRET и это не считая команд, которые нужно выполнить 8088 для сброса контроллера прерываний. У Z80 вызовы подпрограмм и возврат из них может быть условным, что делает аналогичные коды для Z80 компактнее и быстрее, чем для 8088. И, конечно, эмуляция команд EXX и EX для дополнительного набора регистров, блочных команд ввода-вывода или команд RLD/RRD займет на 8088 весьма значительное время. Кроме того, 8088 работает с очередью команд, которой требуется 4 такта на каждый байт инструкции и это часто добавляет такты при выполнении команды, у Z80 такого тормоза нет. Однако самое главное преимущество Z80 над 8086/8088 – это более быстрый доступ к памяти. На Z80 этот доступ занимает 3 такта, а на 8086/88 – 4. Но несмотря на все это, код для 8088 обычно несколько быстрее кода для Z80 на одинаковых частотах. Все-таки 8088 имеет 16-битное ALU, более мощные методы адресации и команды, а его регистры более универсальны, чем регистры Z80. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Z80 использовался в очень большом числе компьютерных систем. В США были очень популярны Tandy TRS-80 – интересно, что команда HALT на этих компьютерах производит перезапуск системы. В Европе – ZX Spectrum, а позднее Amstrad CPC и PCW. Любопытно, что компьютеры Amstrad PCW сохраняли актуальность до середины 90-х и их массово и активно использовали по назначению до конца 90-х. В Японии и других странах производили довольно успешные во всем мире компьютеры MSX. Хотя до сих пор не вполне понятно, почему неплохие компьютеры MSX не смогли попасть в США и многие европейские страны. Довольно популярный C128 мог также использовать z80, но тут пользователям был подстроен скорее конфуз – у этого позднего, 1985 года выпуска, 8-битного компьютера z80, тактированный официально 2 МГц, реально работает только на 1.6 МГц. Это медленнее даже, чем первые системы на 8080 середины 70-х! Номенклатура компьютеров для использования операционной системы CP/M насчитывает не менее трех дюжин довольно известных систем. Z80 использовался также в игровых консолях Master System, Game Gear, Mega Drive и др. Общее число произведенных систем на базе Z80 скорее всего менее 100 миллионов, что меньше числа систем на базе 6502. Но это не считая калькуляторов. В школах и вузах США, начиная с 90-х и по настоящее время, почти все учащиеся обязаны иметь калькулятор TI-83 или совместимый с ним! Поэтому с учетом калькуляторов, возможно, что в 21 веке число систем на базе Z80 превзошло такое число для 6502. </span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="image1690201279xdla5yqlp4.png" /><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;"> </span></p>
+<p align="center" style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Такой ПК достойно выглядел даже в середине 90-х, но его z80 медленнее того, что в ZX Spectrum </span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Самая быстрая известная автору компьютерная система на основе z80 – это BBC Micro c TUBE-приставкой с z80B на 6 МГц, выпускавшейся с 1984. Процессор в этой системе работает на полной скорости, как говорят, &quot;без тормозов&quot;. Подобные приставки производились и для Apple ][ с 1979. Позднее некоторые из таких приставок использовали Z80H на 8 МГц и даже выше. Интересно, что Microsoft в 1980 году получила наибольшую прибыль именно от продажи таких приставок. Можно ещё упомянуть Amstrad PCW16, производившийся с 1994, который использовал CMOS Z80 на частоте 16 МГц. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">В Японии для систем MSX TurboR (1990) производился процессор R800, совместимый с z80. В R800 было добавлено аппаратное 16-разрядное умножение с 32-разрядным результатом. Хотя при умножении на 16-разрядную константу, табличное умножение с таблицей на 768 байт получается на такт быстрее. Есть мнение, что R800 — это сильно упрощенный Z800, работающий на частоте в четыре раза большей, чем частота шины, которая равна примерно 7.16 MГц. Таким образом, внутренняя частота R800 равна примерно 28.64 МГц! </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Сама фирма Zilog производила работу по улучшению Z80 очень непоследовательно и крайне медленно. Первые Z80 работали на частотах до 2.5 МГц, у появившегося вскоре Z80A предельная частота была увеличена до 4 МГЦ – именно эти процессоры стали основой для большинства популярных, использующих Z80 компьютеров. Z80B появился к 1980, но использовался сравнительно редко, например, в упоминавшейся приставке для BBC Micro или в позднем (1989) компьютере Sam Coupé. Z80H появился к середине 80-х и мог работать на частотах до 8 МГц – в известных компьютерах не использовался. Интересно, что изделия Zilog имели на чипе специальные ловушки для тех, кто пытался делать с них копии, например, базовый Z80 имел 9 ловушек и они, по отзывам тех, кто этим занимался, замедляли процесс копирования почти на год. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Более глубокая модернизация z80 была приторможена желанием Zilog создать 16-разрядный процессор. В 1979, чуть позже 8086, но раньше 68000, был выпущен Z8000, не совместимый с z80. Z8000 использовался в примерно десятке систем, как правило, для работы с вариантами Unix. Это был весьма интересный процессор с 16 16-битными регистрами, которые можно было даже использовать как 4 64-битных регистра! Для Z8000 производился чип для управления памятью, который стал доступен к 1980. Для архитектуры x86 процессор с системой управления памятью стал доступен только в 1982, а для 68k только в 1984. Однако, несмотря на хорошие технические характеристики Z8000 получил очень небольшое распространение. IBM даже не рассматривала Z8000 как возможный процессор для IBM PC, поскольку Zilog финансировалась компанией Exxon, которая собиралась конкурировать с IBM. Тут ещё можно вспомнить странные откровения ведущего инженера Zilog Масатоши Шимы (Masatoshi Shima), в которых тот утверждает, что в Zilog искусственно занизили частоту Z8000, чтобы он был не быстрее, чем 8086. Поэтому можно сделать вывод, что с Intel Zilog в области 16-битных процессоров конкурировать не собиралась. Считается, что Motorola 68000 оказался в целом несколько лучше Z8000. Однако, одним из главных преимуществ 68000 была более высокая тактовая частота... Можно предположить, что Z8000 была назначена роль быть в тени 8086, но 68000 уничтожил эту нишу. Возможно из-за неуспеха Z8000 Zilog стала к 1980 подразделением Exxon. Была ещё попытка создать конкурентный 32-битный процессор. В 1986 появился Z80000, совместимый с Z8000, который так </span><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">нигде</span><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;"> и не нашёл применения. Некоторые обстоятельства, в частности, очень странные жалобы команды Zilog на чрезмерное финансирование, позволяют подумать, что возможно Zilog в силу каких-то неясных причин скорее саботировала свою работу, будучи частью Exxon. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Можно удивляться, почему Zilog отказалась от своего подхода, показавшего сверхуспешные результаты с Z80, а именно делать процессоры программно совместимые с процессорами Intel, но лучшие их и при этом совершенно разные на аппаратном уровне. Впоследствии такой подход успешно использовали многие фирмы, в частности, AMD, Cyrix, VIA. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Создание нового процессора на базе Z80 было отложено до 1985, когда был сделан Z800. Однако, тогда основные усилия Zilog были направлены на Z80000 и Z800 было выпущено очень мало. В 1986, после провала Z80000 был выпущен Z280, незначительно улучшенный вариант Z800, который, в частности, мог работать на внутренней частоте в несколько раз большей, чем частота шины – такая новинка принесла потом процессорам Intel 486DX2 и 486DX4 крупный успех. Z280 имел и другие перспективный особенности, которые потом с успехом применяли другие фирмы. Но, возможно из низкой производительности – Z280, несмотря на многие технологические новинки, мог использовать только сравнительно низкие тактовые частоты, этот процессор также </span><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">нигде</span><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;"> не нашёл применения. Считается, что Z280 примерно соответствовал по возможностям Intel 80286, но был существенно, не менее 50% медленнее при использовании одинаковой с 80286 тактовой частоты. Возможно, если бы Z280 появился 5 годами ранее, то он бы мог стать очень успешным. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Наибольшего успеха удалось добиться благодаря сотрудничеству с японской фирмой Hitachi, которая в 1985 выпустила свой супер-Z80, HD64180, схожий по возможностям с Intel 80186, который позволял использовать 512 КБ памяти, добавлял дюжину новых инструкций, но при этом некоторые почти стандартные недокументированные инструкции Z80 не поддерживались. HD64180 использовался в некоторых компьютерных системах. Zilog получила лицензию на HD64180 и стала производить их с маркировкой Z64180. Zilog удалось незначительно улучшить этот процессор, в частности, добавить поддержку работы с 1 МБ памяти и выпустить его к концу 1986 года. Этот новый процессор получил название Z180 и стал основой для семейства процессоров и контроллеров, с тактовыми частотами до 33 МГц. Он использовался в некоторых редких компьютерах MSX2, но больше как контроллер. Любопытно, что Z280 и Z180 появились в один год, как и их примерные аналоги 80286 и 80186 четыре года до этого. В 1994 на базе Z180 был сделан 32-битный Z380, сохранивший совместимость с z80 и примерно соответствующий по возможностями Intel 80386 или Motorola 68020 – Zilog показала отставание от конкурентов почти в 10 лет. Уже 21 веке опять на базе Z180 производятся весьма успешные процессоры-контроллеры eZ80 с таймингами почти как у 6502. Их используют в различном оборудовании, в частности, в сетевых платах, DVD-приводах, калькуляторах, ... А процессора, совместимого с 6502 и сравнимого с eZ80, так и не появилось. Возможно просто из-за того, что у Zilog всегда было лучше с финансами, чем у WDC. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Многие варианты и клоны Z80 выпускались многими компаниями (Mostek – производил Z80 раньше самой Zilog, SGS-Thomson, Sharp, NEC, GoldStar/LG, National Semiconductor, ...) и во многих странах мира. В Восточном блоке наибольших успехов в клонировании Z80 достигли в ГДР, где клон этого процессора производился с 1980. Там же производились и все сопутствующие Z80 чипы. В Румынии смогли сделать свой клон Z80 только к 1988. А в СССР только к 1991, причем процессор получил необычное название T34 такое же как у самого массового танка второй мировой войны. Интересно, что в ГДР смогли сделать даже клон Z8000.</span></p></body></html>
