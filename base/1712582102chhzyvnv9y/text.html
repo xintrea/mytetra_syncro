@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для реализации требований защиты информации при работе с защищенной системой управления базами данных «PostgreSQL» (ЗСУБД) в операционной системе специального назначения «Astra Linux Special Edition» (ОССН «Astra Linux SE») необходимо использовать только методы аутентификации, при которых выполняется сопоставление пользователей (также известных как роли с привилегией «LOGIN») ЗСУБД с пользователями ОССН «Astra Linux SE». </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для использования методов аутентификации, при которых выполняется сопоставление пользователей ЗСУБД с пользователями ОССН «Astra Linux SE», необходимо выполнить следующие действия: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">– предоставить пользователю, от имени которого работает ЗСУБД (как правило, это пользователь «postgres»), права на чтение информации о пользователях ОССН «Astra Linux SE»: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">usermod -a -G shadow postgres</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">и права на чтение информации о мандатных атрибутах: </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">setfacl -d -m u:postgres:r /etc/parsec/macdb<br />setfacl -R -m u:postgres:r /etc/parsec/macdb<br />setfacl -m u:postgres:rx /etc/parsec/macdb<br /><br />setfacl -d -m u:postgres:r /etc/parsec/capdb<br />setfacl -R -m u:postgres:r /etc/parsec/capdb<br />setfacl -m u:postgres:rx /etc/parsec/capdb</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">– установить у пользователей ОССН «Astra Linux SE», соответствущих пользователям ЗСУБД, мандатные атрибуты (даже если предполагается работа только с информацией, имеющей нулевые значения мандатных уровней и категорий): </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:40px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'FreeMono'; color:#6a1009;">pdpl-user -z &lt;username&gt;</span></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">где &lt;username&gt; – имя пользователя ОССН «Astra Linux SE». </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При использовании ЗСУБД в ОССН «Astra Linux SE» (1.5 «Смоленск») выяснилась еще одна особенность. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Методы аутентификации, не предполагающие (в соответствии с описанием методов аутентификации в документации) сопоставления пользователей ЗСУБД с пользователями ОССН «Astra Linux SE» (например, метод «md5»), работают только при наличии в ОССН «Astra Linux SE» пользователей, соответствующих пользователям ЗСУБД. </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Согласно информации, полученной от техподдержки ОССН «Astra Linux SE»: </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">– указанная особенность является следствием доработки СУБД «PostgreSQL» разработчиками ОССН «Astra Linux SE»; </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">  </p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">– такое поведение можно изменить путем установки значения «yes» у параметра «zero_if_notfound» в файле «/etc/parsec/mswitch.conf». В этом случае методы аутентификации, не предполагающие сопоставления пользователей ЗСУБД с пользователями ОССН «Astra Linux SE», будут работать и при отсутствии в ОССН «Astra Linux SE» пользователей, соответствующих пользователям ЗСУБД. Однако тут всплыл нюанс. На практике выяснилось, что этот подход не работает в случае работы ЗСУБД в едином пространстве пользователей (ЕПП). Специалисты техподдержки ОССН «Astra Linux SE» сказали, что в дальнейшем постараются решить этот вопрос. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
