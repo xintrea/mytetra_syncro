@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'DejaVu Sans'; font-size:11pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">10.1. Вступление. </span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Systemd – это системный и сервисный менеджер для операционных систем Linux. Он сохраняет обратную совместимость со сценариями инициализации SysV и предоставляет ряд функций, таких как параллельный запуск системных служб во время загрузки, активация демонов по требованию или логика управления сервисами на основе зависимостей. В Red Hat Enterprise Linux 7 systemd заменяет Upstart как систему инициализации по умолчанию.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Systemd вводит понятие юнитов. Юниты представлены файлами конфигурации, расположенными в одном из каталогов, перечисленных в таблице </span><a href="https://www.deuteron.ru/2018/10/12/rh10_1_introduction_to_systemd/#table_2"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">10.2, «Расположение файлов юнитов Systemd»</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;"> и содержат информацию о системных службах, прослушиваемых сокетах и других объектах, имеющих отношение к системе инициализации. Полный список доступных типов юнитов systemd см. В таблице </span><a href="https://www.deuteron.ru/2018/10/12/rh10_1_introduction_to_systemd/#table_1"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">10.1 «Доступные типы юнитов systemd»</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Таблица 10.1 Доступные типы юнитов systemd</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Тип юнита</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Расширение файла</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Описание</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Service unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.service</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Системные сервисы</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Target unit (далее – таргет)</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.target</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Группа юнитов systemd</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Automount unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.automount</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Точка автомонтирования файловой системы</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Device unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.device</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Файл устройства, распознанного ядром</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Mount unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.mount</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Точка монтирования файловой системы</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Path unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.path</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Файл или директория в файловой системе</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Scope unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.scope</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Процессы созданные извне</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Slice unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.slice</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Группа иерархически организованных юнитов, которые управляют системными процессами.</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Snapshot unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.snapshot</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Сохраненное состояние менеджера systemd</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Socket unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.socket</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Сокет для межпроцессного взаимодейстия</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Swap unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.swap</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Swap-устройство или swap-файл</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Timer unit</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.timer</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Таймер systemd</span></p></td></tr></table>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt;"><br /></p>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Таблица 10.2. Расположение файлов юнитов systemd</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Директория</span></p></td>
+<td>
+<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Описание</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">/usr/lib/systemd/system/</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Файлы юнитов systemd, помещенные сюда при установке RPM-пакетов</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">/run/systemd/system/</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Юниты systemd созданные в рантайме. Эта директория имеет приоритет над директорией /usr/lib/systemd/system/</span></p></td></tr>
+<tr>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">/etc/systemd/system/</span></p></td>
+<td>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Файлы юнитов systemd, созданные с помощью systemctl, а также файлы юнитов, добавленных for extending a service. Эта директория имеет приоритет над директорией /run/systemd/system/</span></p></td></tr></table>
+<h3 style=" margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">Переопределение дефолтной конфигурации systemd с использованием system.conf</span></h3>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Дефолтная конфигурация systemd определяется во время компиляции и ее можно найти в файле конфигурации /etc/systemd/system.conf. Используйте этот файл, если вы хотите отклониться от дефолтных настроек и перезаписать глобальные значения по умолчанию для юнитов systemd.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Например, чтобы переопределить дефолтное значение таймаута, которое установлено в 90 секунд, используйте параметр</p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DefaultTimeoutStartSec для ввода необходимого значения. </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt;"><br /></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<table border="0" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="2" cellpadding="0">
+<tr>
+<td>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'monospace'; font-size:12pt; color:#007800;">DefaultTimeoutStartSec</span><span style=" font-family:'monospace'; font-size:12pt;">=required value</span></p></td></tr></table>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Здесь required value – требуемое значение в секундах.</span></p>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Смотрите также <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/sect-Managing_Services_with_systemd-Unit_Files#Overriding_Unit_Mod-Change-timout-limit"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">Example 10.21, “Changing the timeout limit”</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.</span></p>
+<p style="-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'DejaVu LGC Sans'; font-size:12pt;"><br /></p>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">10.1.1. Основные функции</span></h2>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">В Red Hat Enterprise Linux 7 система systemd и менеджер сервисов предоставляют следующие основные функции:</span></p>
+<ul type="square" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;"><li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Активация, основанная на сокетах – Во время загрузки systemd создает прослушиваемые сокеты для всех системных сервисов которые поддерживают этот тип активации, и передает сокеты этим сервисам сразу после их запуска. Это не только позволяет системе запускать службы параллельно, но также позволяет перезапустить службу, не теряя при этом сообщения, отправленные на него, пока оно недоступно: соответствующий сокет остается доступным и все сообщения помещаются в очередь.</li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Systemd использует .socket юниты для активации, основанной на сокетах. </span></p>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Активация, основанная основе шины (D-Bus)- Системные службы, использующие D-Bus для межпроцессного взаимодействия, могут запускаться по требованию при первой попытке клиентского приложения связаться с ними. Systemd использует служебные файлы D-Bus для активации на основе шины. </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Активация на основе устройств – Системные службы, поддерживающие активацию на основе устройств, могут запускаться по требованию, когда подключается или становится доступным определенный тип оборудования. Systemd использует .device юниты для активации на основе устройств. </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Активация на основе пути – Системные службы, поддерживающие активацию на основе пути, могут запускаться по требованию, когда определенный файл или каталог изменяет свое состояние. Systemd использует .path юниты для активации на основе пути.</li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Управление точками монтирования и автомонтирования – Systemd контролирует и управляет точками монтирования и автомонтирования. Для этого systemd использует юниты .mount или .automount соответственно. </span></p>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Агрессивная параллелизация – Из-за использования активации на основе сокетов systemd может запускать системные службы параллельно, как только все прослушивающие сокеты находятся на своем месте. В сочетании с системными службами, поддерживающими активацию по требованию, параллельная активация значительно сокращает время, необходимое для загрузки системы. </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Транзакционная логика активации юнитов – До активации или деактивации юнита systemd вычисляет зависимости, создает временную транзакцию и проверяет, что эта транзакция является последовательной. Если транзакция непоследовательна, systemd автоматически пытается ее исправить и удалить из нее ненужные задания перед сообщением об ошибке. </li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Обратная совместимость с SysV init – Systemd поддерживает сценарии инициализации SysV, как описано в Базовой базовой спецификации Linux Standard, что упрощает переход к systemd. </li></ul>
+<h2 style=" margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><a name="sect_10.1.2"></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">1</span><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; font-weight:600;">0.1.2. Изменения совместимости</span></h2>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Система systemd и диспетчер сервисов разрабоаны с учетом совместимости с системами инициализации SysV и Upstart. Ниже перечислены наиболее заметные изменения по сравнению с предыдущим мажорным релизом системы Red Hat Enterprise Linux:</span></p>
+<ul type="square" style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;"><li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Systemd имеет ограниченную поддержку ранлевелов. Он предоставляет номера таргетов, которые могут быть сопоставлены с ранлевелами для совместимости, просмотреть какому ранлевелу соответствует текущий таргет можно командой runlevel. Не все таргеты systemd могут быть сопоставлены с ранлевелом. В случае, если ранлевел не может быть сопоставлен команда вернет значение N. Рекомендуется по возможности избегать применения команды runlevel.</li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Для получения дополнительной информации о таргетах в systemd и их сравнении с уровнями выполнения, см. </span><a href="http://www.deuteron.ru/2018/10/24/rh10_3_working_with_systemd_targets/"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">Раздел 10.3 “Работа с таргетами в systemd”</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.</span></p>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Утилита systemctl не поддерживает пользовательские команды. Помимо стандартных команд, таких как start, stop и status, авторы сценариев инициализации SysV предоставляют поддержку любого количества команд для обеспечения дополнительной функциональности. Например, init-скрипт для iptables в Red Hat Enterprise Linux 6 может быть выполнен с командой panic, которая сразу же активирует режим паники и перенастрот систему так, что начнется удаление всех входящих и исходящих пакетов. В systemd такое не поддерживается, утилита systemctl принимает только задокументированные команды.</li>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Для получения дополнительной информации об утилите systemctl и ее сравнении с предыдущей утилитой service см. </span><a href="http://www.deuteron.ru/2018/10/19/rh10_2_managing_system_services/"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">Раздел 10.2 Управление системными сервисами</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">.</span></p>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Утилита systemctl не взаимодействует со службами, которые не были запущены через systemd. Когда systemd запускает системный сервис, он сохраняет идентификатор основного процесса, чтобы отслеживать его. Утилита systemctl затем использует этот PID для запроса и управления сервисом. Т.е., если пользователь запускает конкретный демон непосредственно в командной строке, systemctl не может определить его текущий статус или остановить его.</li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Systemd останавливает только запущенные сервисы. Ранее, когда инициализировался процесс выключения, RHEL 6 и предыдущие релизы символические ссылки, расположенные в директории /etc/rc0.d/ чтобы остановить все доступные сервисы независимо от их статуса. В systemd только запущенные сервисы завершаются при выключении.</li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Системные сервисы недоступны для чтения из стандартного потока ввода.Когда systemd запускает сервис, он подключает его к стандатртному вводу в /de/null чтобы предотвратить какое-либо взаимодействие с пользователем.</li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Системные сервисы не наследуют никакого контекста (таких как переменные среды PATH и HOME) от вызывающего их пользователя или его сессии. Каждый сервис запускается в чистом контексте выполнения.</li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">При загрузке init-скрипта SysV, systemd считывает информацию о зависимостях из заголовка Linux Standard Base (LSB) и интерпретирует ее во время выполнения.</li>
+<li style=" font-family:'DejaVu LGC Sans'; font-size:12pt;" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Для всех операций с service-юнитами установлен тайм-аут по умолчанию 5 минут, чтобы предотвратить сбой сервиса из-за зависания системы. Это значение жестко запрограммировано для служб, которые генерируются из скриптов инициализации и не может быть изменено. Однако могут использоваться отдельные конфигурационные файлы для указания более длительного времени ожидания определенного сервиса, см <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/sect-Managing_Services_with_systemd-Unit_Files#Overriding_Unit_Mod-Change-timout-limit"><span style=" text-decoration: underline; color:#0000ff;">Example 10.21, “Changing the timeout limit”</span></a></li></ul>
+<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">Подробный список изменений, введенных с systemd см. </span><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Migration_Planning_Guide/"><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt; text-decoration: underline; color:#0000ff;">Migration Planning Guide for Red Hat Enterprise Linux 7</span></a><span style=" font-family:'DejaVu LGC Sans'; font-size:12pt;">. </span></p></body></html>
